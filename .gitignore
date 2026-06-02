@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# manim output
+media/
+videos/
+images/
+Tex/
+texts/
+
+# AI/LLM scratch space
+_scratch/
+_draft_*
+*.tmp
+.cascade/
+.cursor/
+.claude/*
+!.claude/agents/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+*.stackdump
+
+# IDE
+.vscode/
+.idea/
+
+# experiment outputs
+experiments/**/_cache/
+experiments/**/*.png
+# scratch run logs (underscore-prefixed), not part of the tracked record
+experiments/**/_*.log
+
+# Lean / Lake build artifacts (gigabytes of compiled oleans; pulled from cache via `lake update`)
+.lake/
+build/
+
+# Reference textbooks (copyrighted -- do not commit)
+*.pdf
+!sources/*.pdf
+
+# In-progress / partial browser downloads (never commit)
+*.crdownload
+*.part
+*.tmp
