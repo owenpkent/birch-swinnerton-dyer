@@ -15,7 +15,9 @@ python -c "from pdfminer.high_level import extract_text; open('sources/NAME.txt'
 
 ## Status
 
-Empty by default. This repo runs fully offline from the bundled curve data in `experiments/_shared/curve_data.py` (public LMFDB/Cremona invariants), so no source PDF is required to run the experiments. Add sources here as the literature survey (SURVEYOR) proceeds, and record each in [`../references/README.md`](../references/README.md) with a reading note in [`../docs/03_research/reading_notes/`](../docs/03_research/reading_notes/).
+Primary-source tier, kept deliberately small. This repo runs fully offline from the bundled curve data in `experiments/_shared/curve_data.py` (public LMFDB/Cremona invariants), so no source PDF is required to run the experiments. Classical originals (the Birch and Swinnerton-Dyer 1965 paper, the Clay problem description) and their text conversions belong here when committed; the broader modern reference library (28 sources across eight topic folders) lives in [`../references/`](../references/) as gitignored PDFs plus a tracked index.
+
+The reference library is now populated and read through. See [`../references/README.md`](../references/README.md) for the eight-folder index (with local-PDF status per source) and [`../docs/03_research/reading_notes/`](../docs/03_research/reading_notes/) for one deep reading note per source, each running the source against the three detectors. The drop-to-note workflow is documented in [`../docs/03_research/reading_notes/PROCESSING_PDFS.md`](../docs/03_research/reading_notes/PROCESSING_PDFS.md).
 
 ## Attribution and copyright
 
