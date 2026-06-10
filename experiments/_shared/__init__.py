@@ -27,6 +27,23 @@ from .controls import (
     control_pair,
     ControlPair,
 )
+from .rational_points import (
+    add,
+    canonical_height,
+    gram_matrix,
+    lift_x,
+    multiply,
+    negate,
+    neron_tate_pairing,
+    on_curve,
+    search_points,
+)
+from .period_lattice import (
+    period_lattice,
+    reduce_mod_lattice,
+    two_torsion_roots,
+    x_from_z,
+)
 
 __all__ = [
     "EllipticCurve",
@@ -46,4 +63,17 @@ __all__ = [
     "FunctionFieldTemplate",
     "control_pair",
     "ControlPair",
+    "add",
+    "canonical_height",
+    "gram_matrix",
+    "lift_x",
+    "multiply",
+    "negate",
+    "neron_tate_pairing",
+    "on_curve",
+    "search_points",
+    "period_lattice",
+    "reduce_mod_lattice",
+    "two_torsion_roots",
+    "x_from_z",
 ]
