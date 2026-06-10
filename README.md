@@ -28,7 +28,10 @@ birch-swinnerton-dyer/
 │   ├── l_function_rank/         # (a) analytic rank from L(E,s) derivatives at s=1
 │   ├── weak_bsd_table/          # (b) weak BSD: analytic rank == Mordell-Weil rank on a table
 │   ├── strong_bsd_quantities/   # (c) Omega, Reg, c_p, torsion -> conjectural #Sha
-│   └── sato_tate/               # (d) Sato-Tate semicircle as an a_p sanity check
+│   ├── sato_tate/               # (d) Sato-Tate semicircle as an a_p sanity check
+│   ├── heegner_ceiling/         # (e) the Heegner machine run across the rank boundary
+│   ├── independent_points/      # (f) r independent points + regulator from scratch (rank >= 2)
+│   └── twist_parity/            # (g) twist family scan: where the root number goes blind
 ├── references/                  # Reference library index (gitignored PDFs) + tracked bibliography
 ├── lean/                        # Lean 4 / Mathlib formal verification (skeleton)
 │   ├── lakefile.lean
@@ -77,12 +80,15 @@ Read every negative result here in that spirit. The fact that only ranks 0 and 1
 
 ## Experimental thread
 
-See [`experiments/PLAN.md`](experiments/PLAN.md). Four runnable experiments built on a shared `EllipticCurve` / Hasse-Weil $L$-function interface and three wrong-approach detectors:
+See [`experiments/PLAN.md`](experiments/PLAN.md). Seven runnable experiments built on a shared `EllipticCurve` / Hasse-Weil $L$-function interface and three wrong-approach detectors:
 
 - (a) **Analytic rank** from $L(E, s)$ derivatives at $s = 1$ via the approximate functional equation.
 - (b) **Weak BSD** on a bundled table of curves of rank 0, 1, 2, 3: analytic rank vs Mordell-Weil rank.
 - (c) **Strong BSD quantities**: real period (AGM), regulator, Tamagawa product, torsion, solved for the conjectural $\#\mathrm{Sha}$.
 - (d) **Sato-Tate** semicircle as a sanity check on the $a_p$ point-count pipeline.
+- (e) **Heegner ceiling**: the proven rank-1 machine (modular parametrization + CM points), run identically on 37a1 (rank 1), 389a1 (rank 2) and 5077a1 (rank 3), measuring exactly where and why it dies.
+- (f) **Independent points**: the constructible half of the rank $\geq 2$ object, $r$ independent points with the regulator rebuilt from scratch by exact arithmetic.
+- (g) **Twist parity scan**: quadratic twist families with closed-form central values; locates the twists whose analytic rank 2 is invisible to the root number.
 
 Smoke test:
 ```powershell
@@ -104,11 +110,14 @@ Plus a **control pair**: a rank $\leq 1$ curve (BSD proven) versus an explicit r
 | Area | Status |
 |------|--------|
 | Repo structure | Complete |
-| Experiments: Phase 0 infrastructure (EllipticCurve / L-function + detectors + smoke test) | Complete, smoke test 6/6 |
+| Experiments: Phase 0 infrastructure (EllipticCurve / L-function + detectors + smoke test) | Complete, smoke test 7/7 (check 7: exact off-center functional equation) |
 | Experiment (a): analytic rank from L-derivatives | Runnable |
 | Experiment (b): weak BSD on rank 0-3 table | Runnable |
 | Experiment (c): strong BSD quantities -> conjectural #Sha | Runnable |
 | Experiment (d): Sato-Tate semicircle | Runnable, matches to chi-square ~0.014 |
+| Experiment (e): Heegner machine across the rank boundary | Runnable; rational point out on 37a1, torsion on 389a1 and 5077a1 |
+| Experiment (f): independent points + regulator from scratch | Runnable; all five open-regime regulators reproduced at index 1 |
+| Experiment (g): twist parity scan | Runnable; 11 parity-blind analytic-rank-2 twists found |
 | Solutions / approach catalog | `docs/solutions/` |
 | Research atlas | `docs/research_atlas/` |
 | Docs (intuitive, undergrad, graduate, research) | Substantial |
@@ -131,4 +140,7 @@ python -m experiments.l_function_rank.e_a_analytic_rank
 python -m experiments.weak_bsd_table.e_b_weak_bsd
 python -m experiments.strong_bsd_quantities.e_c_strong_bsd
 python -m experiments.sato_tate.e_d_sato_tate
+python -m experiments.heegner_ceiling.e_e_heegner_ceiling
+python -m experiments.independent_points.e_f_independent_points
+python -m experiments.twist_parity.e_g_twist_parity
 ```

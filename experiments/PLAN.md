@@ -17,12 +17,15 @@
 | (b) | [`weak_bsd_table/`](weak_bsd_table/) | weak BSD: analytic rank $=$ MW rank on a rank 0-3 table | RUNNABLE; 15/15 match |
 | (c) | [`strong_bsd_quantities/`](strong_bsd_quantities/) | strong BSD: $\Omega, \operatorname{Reg}, \prod c_p, \#\text{tors} \Rightarrow$ conjectural $\#\operatorname{Sha}$ | RUNNABLE; $\#\operatorname{Sha}$ lands at a perfect square |
 | (d) | [`sato_tate/`](sato_tate/) | Sato-Tate semicircle as an $a_p$ pipeline check | RUNNABLE; chi-square-like deviation $\approx 0.014$ |
+| (e) | [`heegner_ceiling/`](heegner_ceiling/) | run the Heegner machine across the rank boundary: point out on 37a1, what on 389a1 / 5077a1? | RUNNABLE; non-torsion point recovered on 37a1, torsion on 389a1 AND on 5077a1 (same parity as 37a1): the ceiling is the one-point structure, not the sign |
+| (f) | [`independent_points/`](independent_points/) | construct the easy half of the rank $\geq 2$ object: $r$ independent points + regulator from scratch | RUNNABLE; generators found on all five open-regime curves, Gram determinant reproduces the LMFDB regulator at index 1 |
+| (g) | [`twist_parity/`](twist_parity/) | where exactly does parity go blind in a twist family? | RUNNABLE; 11 twists of 11a1/37a1 with $w = +1$ but $L(E_d, 1) = 0$ (analytic rank 2, invisible to the root number) |
 
 ## Detector coverage
 
-- **Detector 1 (parity-only):** invoked in (a) and (b). The rank is found by derivative vanishing, not by the root number alone; the detector confirms a parity-only conclusion would be incomplete.
-- **Detector 2 (Sha-finiteness):** invoked in (b) and (c). Flagged OPEN for every rank $\geq 2$ curve.
-- **Detector 3 (function-field mirage):** documented in [`_shared/controls.py`](_shared/controls.py); none of the experiments imports a geometric Frobenius.
+- **Detector 1 (parity-only):** invoked in (a) and (b); EXHIBITED in (g) (a family where $w$ misclassifies every rank-2 twist) and in (e) (37a1 and 5077a1 share $w = -1$, yet the machine outputs a point on one and torsion on the other, so the ceiling is not parity).
+- **Detector 2 (Sha-finiteness):** invoked in (b) and (c). Flagged OPEN for every rank $\geq 2$ curve. (f) makes the asymmetry concrete: the lower bound rank $\geq r$ is constructed; the upper bound is exactly the missing Selmer/Sha input.
+- **Detector 3 (function-field mirage):** documented in [`_shared/controls.py`](_shared/controls.py); none of the experiments imports a geometric Frobenius. (f) names the gap: over $\mathbb{F}_q(C)$ the upper bound comes from $H^2$ of the elliptic surface; over $\mathbb{Q}$ nothing here supplies it.
 
 ## How to run
 
@@ -32,10 +35,13 @@ python -m experiments.l_function_rank.e_a_analytic_rank
 python -m experiments.weak_bsd_table.e_b_weak_bsd
 python -m experiments.strong_bsd_quantities.e_c_strong_bsd
 python -m experiments.sato_tate.e_d_sato_tate
+python -m experiments.heegner_ceiling.e_e_heegner_ceiling
+python -m experiments.independent_points.e_f_independent_points
+python -m experiments.twist_parity.e_g_twist_parity
 ```
 
-Run from the repo root so `from experiments._shared import ...` resolves. The rank-3 derivative search at high precision is the slowest step (tens of seconds to a few minutes).
+Run from the repo root so `from experiments._shared import ...` resolves. The slowest steps are the rank-3 derivative search in (b), the 5077a1 Heegner sum in (e), and the twist confirmations in (g) (each tens of seconds to a few minutes).
 
 ## What would move the needle
 
-The experiments validate the substrate; they do not attempt the open problem. The next computational step that would matter is to implement a candidate rank-2 construction (Research Direction 01) and test whether its output passes Detector 1 and Detector 3 on the bundled rank-2 curves (389a1, 433a1, 571a1, 643a1).
+Experiments (a)-(d) validate the substrate. Experiments (e)-(g) probe the rank-2 wall itself: (e) implements the proven machine and measures where it dies, (f) constructs the half of the rank-2 object that is constructible, (g) maps the parity-blind locus in a family. The operational bar for any Research Direction 01 candidate is now concrete: **produce non-torsion output on 389a1 where the Heegner machine in (e) provably outputs zero**, then pass Detector 1 (its output must carry more than $w$) and Detector 3 (no geometric Frobenius). The next computational steps that would matter: a numerical Gross-Zagier check ($L'(E/K, 1) = c\,\hat{h}(y_K)$ to high precision, extending (e)), a $p$-adic $L$-function / Mazur-Tate-Teitelbaum thread (scoring architecture 3), and 2-descent Selmer bounds to make (f)'s upper-bound gap explicit curve by curve.

@@ -58,7 +58,7 @@ Three detectors in [`experiments/_shared/controls.py`](experiments/_shared/contr
 
 Plus the **control pair**: rank $\leq 1$ (proven) vs rank $\geq 2$ (open). A method must do something genuinely new in the open regime.
 
-Run `python -m experiments._shared.smoke_test` (6/6) to verify the substrate and detectors.
+Run `python -m experiments._shared.smoke_test` (7/7) to verify the substrate and detectors. Check 7 is the exact off-center functional equation, the test that catches a single wrong bad-prime $a_p$ (it found nine in the original bundled table).
 
 ## Tech stack
 
