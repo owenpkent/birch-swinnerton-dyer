@@ -9,6 +9,11 @@ Validates:
   5. Parity detector: the root number gives the correct rank parity for the
      bundled curves, and the parity-only wrong-approach flag fires.
   6. Sha-finiteness flag: fires (open) for the rank-2 control, clean for rank 1.
+  7. Exact functional equation off the center: g(1/(N y)) = w N y^2 g(y) with
+     g(y) = sum a_n e^{-2 pi n y}, to 9 digits, for every bundled curve. This
+     check sees EVERY coefficient with weight ~ e^{-2 pi n / (2 sqrt N)}, so a
+     single wrong a_p (even at p = N, invisible to the central-value tests)
+     fails it. It caught nine wrong bundled bad-prime signs on 2026-06-09.
 """
 
 from __future__ import annotations
@@ -101,6 +106,36 @@ def test_sha_flag():
     return ok1 and ok2
 
 
+def test_functional_equation():
+    print("Test 7: exact functional equation off the center (all curves)")
+    mp.mp.dps = 25
+    ok_all = True
+    for E in all_curves():
+        N = E.conductor
+        y0 = mp.mpf(2) / mp.sqrt(N)
+        ylo = 1 / (N * y0)
+        n_max = int(30 / (2 * mp.pi * ylo)) + 20
+
+        def g(y):
+            acc = mp.mpf(0)
+            u = mp.exp(-2 * mp.pi * y)
+            upow = mp.mpf(1)
+            for n in range(1, n_max + 1):
+                upow *= u
+                an = E.a_n(n)
+                if an:
+                    acc += an * upow
+            return acc
+
+        ratio = g(ylo) / (N * y0 * y0 * g(y0))
+        ok = abs(ratio - E.root_number) < 1e-9
+        ok_all = ok_all and check(
+            f"{E.label}: g(1/(Ny)) / (N y^2 g(y)) = w = {E.root_number:+d}",
+            ok, f"ratio {mp.nstr(ratio, 12)}"
+        )
+    return ok_all
+
+
 def main():
     results = [
         test_point_counting(),
@@ -109,6 +144,7 @@ def main():
         test_L_zero_rank1(),
         test_parity_detector(),
         test_sha_flag(),
+        test_functional_equation(),
     ]
     print()
     n_pass = sum(results)
