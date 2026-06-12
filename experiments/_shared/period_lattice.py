@@ -31,10 +31,22 @@ to an x-coordinate and tested for rationality. That round trip is what lets
 the Heegner experiment certify "the machine produced an actual rational
 point" or "the machine produced torsion".
 
-WHY only Delta > 0 here: the negative-discriminant case needs the complex
-AGM and a non-rectangular lattice. The three curves the Heegner experiment
-needs are all Delta > 0, so this module stays in the rectangular case and
-raises loudly otherwise.
+The rectangular helpers (two_torsion_roots, period_lattice, x_from_z,
+reduce_mod_lattice) cover Delta > 0 only, which is all the original Heegner
+experiment needed. period_lattice_any extends to Delta < 0 (one real
+component, RHOMBIC lattice): there the real period w1 and the imaginary
+height c of the lattice come from direct numerical integration of the Neron
+differential dx / (2y + a1 x + a3), whose square is f(x) = 4x^3 + b2 x^2 +
+2 b4 x + b6:
+
+    w1 = 2 int_{e1}^{inf} dx / sqrt(f(x))        (the single real circle),
+    c  = 2 int_{-inf}^{e1} dx / sqrt(-f(x)),     w2 = (w1 + i c) / 2,
+
+with e1 the unique real root of f. The substitution x = e1 +- t^2 removes
+the endpoint singularity, so mpmath's quadrature delivers full precision.
+Callers that need x(z) on a rhombic lattice should use the theta-function
+Weierstrass machinery in analytic_height.py (x_from_z here is sn-based and
+rectangular-only).
 """
 
 from __future__ import annotations
@@ -67,6 +79,36 @@ def period_lattice(E):
     w1 = mp.pi / mp.agm(mp.sqrt(r1 - r3), mp.sqrt(r1 - r2))
     w2 = mp.mpc(0, 1) * mp.pi / mp.agm(mp.sqrt(r1 - r3), mp.sqrt(r2 - r3))
     return w1, w2, (r1, r2, r3)
+
+
+def period_lattice_any(E):
+    """Lattice generators (w1, w2) for either sign of the discriminant.
+
+    Delta > 0: delegates to the rectangular AGM code (w1 real, w2 imaginary;
+    the LMFDB real period is 2 w1). Delta < 0: rhombic, w1 IS the LMFDB real
+    period and w2 = (w1 + i c)/2 with c the imaginary cycle integral. In both
+    cases Im(w2/w1) > 0 and the covolume is w1 * Im(w2).
+    """
+    a1, a2, a3, a4, a6 = [mp.mpf(a) for a in E.a_invariants]
+    b2 = a1 * a1 + 4 * a2
+    b4 = 2 * a4 + a1 * a3
+    b6 = a3 * a3 + 4 * a6
+    roots = mp.polyroots([4, b2, 2 * b4, b6])
+    tol = mp.mpf(10) ** (-(mp.mp.dps - 8))
+    if all(abs(mp.im(r)) < tol for r in roots):
+        w1, w2, _ = period_lattice(E)
+        return w1, w2
+    e1 = next(mp.re(r) for r in roots if abs(mp.im(r)) < tol)
+    # f(x) = (x - e1) g(x) with g a positive-definite real quadratic
+    c1 = b2 + 4 * e1
+    d1 = 2 * b4 + e1 * c1
+
+    def g(x):
+        return 4 * x * x + c1 * x + d1
+
+    w1 = 4 * mp.quad(lambda t: 1 / mp.sqrt(g(e1 + t * t)), [0, mp.inf])
+    c = 4 * mp.quad(lambda t: 1 / mp.sqrt(g(e1 - t * t)), [0, mp.inf])
+    return w1, (w1 + mp.mpc(0, 1) * c) / 2
 
 
 def x_from_z(z, r1, r2, r3):
