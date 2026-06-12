@@ -37,6 +37,16 @@ The center-of-strip experiments (a)-(d) never saw the bad values (the AFE
 weight at n = N is e^{-2 pi N / sqrt N}, i.e. invisible); the functional
 equation away from the center sees a single wrong a_p immediately. _build()
 asserts the product formula w = -prod_p(-a_p) on every load.
+
+DATA INTEGRITY (2026-06-11): the bundled regulator of 5077a1 was wrong at
+3.4e-4 relative (0.4172876215; correct 0.4171435588). Found by experiment
+(i)'s 1e-5 cross-check of sigma-function regulators against the bundle;
+confirmed three independent ways: sigma-function heights of the searched
+generators (0.41714355875838396982), the exact-doubling Gram determinant
+(agrees to its own 1e-5 limit), and the BSD-implied value L'''(1)/3!/Omega
+from the Cauchy-integral third derivative (matches the sigma value to all
+20 digits). The 4-digit display of experiments (c)/(f) could not separate
+0.99966 from 1.0000, which is how the error survived two earlier audits.
 """
 
 from __future__ import annotations
@@ -103,9 +113,10 @@ _RECORDS: List[dict] = [
          real_period=5.0103134331, regulator=0.2291796216, tamagawa_product=1, sha_order=1),
 
     # ---- rank 3 (OPEN regime) ----
+    # regulator corrected 2026-06-11 (was 0.4172876215; see DATA INTEGRITY note)
     dict(label="5077a1", a_invariants=[0, 0, 1, -7, 6], conductor=5077,
          rank=3, torsion_order=1, root_number=-1, bad_ap={5077: -1},
-         real_period=4.1516879831, regulator=0.4172876215, tamagawa_product=1, sha_order=1),
+         real_period=4.1516879831, regulator=0.4171435588, tamagawa_product=1, sha_order=1),
 ]
 
 

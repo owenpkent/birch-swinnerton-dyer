@@ -106,8 +106,20 @@ def period_lattice_any(E):
     def g(x):
         return 4 * x * x + c1 * x + d1
 
-    w1 = 4 * mp.quad(lambda t: 1 / mp.sqrt(g(e1 + t * t)), [0, mp.inf])
-    c = 4 * mp.quad(lambda t: 1 / mp.sqrt(g(e1 - t * t)), [0, mp.inf])
+    def half_period(sign):
+        # breakpoints where g(e1 + sign t^2) bottoms out (vertex of g),
+        # otherwise tanh-sinh quietly loses digits there (571a1 did)
+        points = [mp.mpf(0)]
+        x_vertex = -c1 / 8
+        if sign * (x_vertex - e1) > 0:
+            t_peak = mp.sqrt(sign * (x_vertex - e1))
+            points += [t_peak, 2 * t_peak + 1]
+        points.append(mp.inf)
+        return 4 * mp.quad(lambda t: 1 / mp.sqrt(g(e1 + sign * t * t)),
+                           points, maxdegree=9)
+
+    w1 = half_period(+1)
+    c = half_period(-1)
     return w1, (w1 + mp.mpc(0, 1) * c) / 2
 
 
