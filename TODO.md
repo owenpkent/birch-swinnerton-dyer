@@ -34,7 +34,8 @@ Tracked by Constellation. Checkboxes reflect real state.
 - [x] Specify the rank-2 object precisely: three clauses + executable test battery T1-T4 in `docs/03_research/research_directions/01_rank_two_object.md` (2026-06-11)
 - [x] Run the rank-2 spec through Detector 1 and Detector 3 (exclusion sections of the spec; multi-field Heegner retired by Gross-Kohnen-Zagier)
 - [x] Experiment (h) `gross_zagier_check/`: numerical Gross-Zagier verified on 4 (E, K) pairs to 1e-20 (37a1 over two fields, 43a1, 53a1); sigma-function heights + Delta < 0 lattice added to the substrate
-- [ ] Surveyor pass on the Kudla program (the live Clause 2 candidate: the only systematic source of second derivatives); Detector 3 audit of its Aux(E)
+- [x] Surveyor pass on the Kudla program + Yun-Zhang shtukas (2 reading notes, atlas scorecard rows; the wall localized to two imports: the r legs and the Frobenius twist) (2026-06-11)
+- [x] Experiment (i) `strong_bsd_hp/`: strong BSD at working precision in the open regime; #Sha = 1 to within 5e-28 on all five rank >= 2 curves; caught + fixed the wrong bundled 5077a1 regulator (third regulator error) and a silent quadrature precision loss (2026-06-12)
 - [ ] p-adic L-function / Mazur-Tate-Teitelbaum thread (architecture 3 scoring, computational side)
 - [ ] 2-descent Selmer bound to make experiment (f)'s upper-bound gap explicit per curve
 

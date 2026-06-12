@@ -4,7 +4,7 @@
 > each mapping a source to what it PROVES, its exact REGIME (analytic rank 0/1 vs $\geq 2$;
 > archimedean vs $p$-adic), and its verdict against the three detectors in
 > [`experiments/_shared/controls.py`](../../../experiments/_shared/controls.py). The PDFs are
-> gitignored; these notes are tracked. **Coverage: all 28 sources noted, each verified by an
+> gitignored; these notes are tracked. **Coverage: all 30 sources noted (Kudla 2004 and Yun-Zhang 2017 added note-only 2026-06-11), each verified by an
 > adversarial pass for regime honesty (no conjecture upgraded to a theorem), correct detector
 > verdicts, no fabricated page numbers, and the no-dashes style rule.**
 >
@@ -109,6 +109,7 @@
 | [Gross-1991-Kolyvagin-Work](Gross-1991-Kolyvagin-Work.md) | The cleanest exposition of Kolyvagin's Euler system: Heegner points over ring class fields bound $\mathrm{Sel}$/$\mathrm{Sha}$, rank 1 + finite $\mathrm{Sha}$ when $L'(E,1) \neq 0$. |
 | [Darmon-2004-Rational-Points-Modular-Elliptic-Curves](Darmon-2004-Rational-Points-Modular-Elliptic-Curves.md) | The Heegner / Stark-Heegner toolkit: rank 1 proven, the $p$-adic real-quadratic extensions conjectural; the one-point ceiling made explicit. |
 | [Zhang-2001-Heegner-Points-Shimura-Curves](Zhang-2001-Heegner-Points-Shimura-Curves.md) | Gross-Zagier generalized to Shimura curves (Heegner hypotheses relaxed); still a one-point (rank-1) formula however general. |
+| [Kudla-2004-Special-Cycles-Derivatives-Eisenstein](Kudla-2004-Special-Cycles-Derivatives-Eisenstein.md) | The Kudla program: arithmetic special cycles vs derivatives of Eisenstein series; the live candidate home for a second-order Gross-Zagier (Direction 01 Clause 2); everything proven is first-derivative. |
 
 ### 03 Euler systems (bounding Selmer and Sha)
 | Note | Headline |
@@ -139,6 +140,7 @@
 | [Tate-1966-BSD-Geometric-Analog](Tate-1966-BSD-Geometric-Analog.md) | States strong BSD invariantly and builds the geometric analog: over $\mathbb{F}_q(C)$, BSD $\iff$ finite Brauer group $\iff$ Tate conjecture. The SOURCE of Detector 3. |
 | [Milne-1975-Artin-Tate](Milne-1975-Artin-Tate.md) | Proves Artin-Tate (hence function-field BSD) under finite Brauer group, via geometric Frobenius and Poincare duality on the surface; the sharpest mirage. |
 | [Ulmer-2002-Large-Rank-Function-Fields](Ulmer-2002-Large-Rank-Function-Fields.md) | Elliptic curves over $\mathbb{F}_q(t)$ of arbitrarily large rank with BSD fully PROVEN; full rank-to-infinity BSD via geometry the number field lacks. |
+| [Yun-Zhang-2017-Shtukas-Taylor-Expansion](Yun-Zhang-2017-Shtukas-Taylor-Expansion.md) | Every central Taylor coefficient $L^{(r)}$ = self-intersection of the Heegner-Drinfeld cycle on $\mathrm{Sht}^r$: the all-orders derivative formula is a THEOREM over function fields; the two untransferable imports (legs, Frobenius twist) named. |
 
 ### 07 Foundations / textbooks (descent, Selmer, Sha, heights)
 | Note | Headline |

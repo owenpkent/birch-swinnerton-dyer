@@ -34,6 +34,7 @@
 | `Gross-1991-Kolyvagins-Work-on-Modular-Elliptic-Curves.pdf` | B. Gross, "Kolyvagin's work on modular elliptic curves," in L-functions and Arithmetic (Durham 1989), LMS LNS 153 (1991), 235-256 | note only | The cleanest exposition of Kolyvagin's Euler system: Heegner points over ring class fields bound $\mathrm{Sel}$/$\mathrm{Sha}$, giving rank 1 + finite $\mathrm{Sha}$ when $L'(E,1) \neq 0$. |
 | `Darmon-2004-Rational-Points-on-Modular-Elliptic-Curves-CBMS.pdf` | H. Darmon, "Rational Points on Modular Elliptic Curves," CBMS 101, AMS (2004) | yes | The Heegner / Stark-Heegner toolkit: rank 1 proven, the $p$-adic real-quadratic extensions conjectural; the one-point ceiling made explicit. |
 | `Zhang-2001-Heights-of-Heegner-Points-on-Shimura-Curves.pdf` | S. Zhang, "Heights of Heegner points on Shimura curves," Ann. of Math. 153 (2001), 27-147 | yes | Gross-Zagier generalized to Shimura curves (Heegner hypotheses relaxed); still a one-point (rank-1) formula however general. |
+| `Kudla-2004-Special-Cycles-and-Derivatives-of-Eisenstein-Series.pdf` | S. Kudla, "Special cycles and derivatives of Eisenstein series," in Heegner Points and Rankin L-Series, MSRI Publ. 49, Cambridge (2004) | note only | The Kudla program: special cycles in all codimensions vs derivatives of Siegel-Eisenstein series; the only number-field formalism shaped like a second-order Gross-Zagier (Direction 01, Clause 2); proven layer is first-derivative only. |
 
 ## 03 Euler systems (bounding Selmer and Sha)
 
@@ -68,6 +69,7 @@
 | `Tate-1966-BSD-and-a-Geometric-Analog-Bourbaki.pdf` | J. Tate, "On the conjectures of Birch and Swinnerton-Dyer and a geometric analog," Seminaire Bourbaki, Exp. 306 (1966), 415-440 | note only (numdam open; sandbox-blocked) | States strong BSD invariantly and builds the geometric analog: over $\mathbb{F}_q(C)$, BSD $\iff$ finite Brauer group $\iff$ Tate conjecture. The SOURCE of Detector 3. |
 | `Milne-1975-On-a-Conjecture-of-Artin-and-Tate.pdf` | J. S. Milne, "On a conjecture of Artin and Tate," Ann. of Math. 102 (1975), 517-533 | yes | Proves Artin-Tate (hence function-field BSD) under finite Brauer group, via geometric Frobenius and Poincare duality on the surface; the sharpest mirage. |
 | `Ulmer-2002-Elliptic-Curves-Large-Rank-Function-Fields.pdf` | D. Ulmer, "Elliptic curves with large rank over function fields," Ann. of Math. 155 (2002), 295-315 | yes | Elliptic curves over $\mathbb{F}_q(t)$ of arbitrarily large rank with BSD fully PROVEN; the starkest mirage, full rank-to-infinity BSD via geometry the number field lacks. |
+| `Yun-Zhang-2017-Shtukas-and-the-Taylor-Expansion-of-L-functions.pdf` | Z. Yun, W. Zhang, "Shtukas and the Taylor expansion of L-functions," Ann. of Math. 186 (2017); part II, Ann. of Math. 189 (2019) | note only | ALL central Taylor coefficients $L^{(r)}$ as intersection numbers of Heegner-Drinfeld cycles on moduli of shtukas with $r$ legs; the higher-derivative mechanism exists as a THEOREM, but only over function fields; names the two imports (legs, Frobenius twist) the number field lacks. |
 
 ## 07 Foundations / textbooks (descent, Selmer, Sha, heights)
 

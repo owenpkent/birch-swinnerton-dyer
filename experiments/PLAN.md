@@ -20,7 +20,8 @@
 | (e) | [`heegner_ceiling/`](heegner_ceiling/) | run the Heegner machine across the rank boundary: point out on 37a1, what on 389a1 / 5077a1? | RUNNABLE; non-torsion point recovered on 37a1, torsion on 389a1 AND on 5077a1 (same parity as 37a1): the ceiling is the one-point structure, not the sign |
 | (f) | [`independent_points/`](independent_points/) | construct the easy half of the rank $\geq 2$ object: $r$ independent points + regulator from scratch | RUNNABLE; generators found on all five open-regime curves, Gram determinant reproduces the LMFDB regulator at index 1 |
 | (g) | [`twist_parity/`](twist_parity/) | where exactly does parity go blind in a twist family? | RUNNABLE; 11 twists of 11a1/37a1 with $w = +1$ but $L(E_d, 1) = 0$ (analytic rank 2, invisible to the root number) |
-| (h) | [`gross_zagier_check/`](gross_zagier_check/) | verify Gross-Zagier numerically: $L'(E,1) L(E_D,1) = \mathrm{Vol}(\Lambda)\hat{h}(P)/\sqrt{\|D\|}$ | RUNNABLE; 4 (E, K) pairs at $10^{-20}$, Heegner indices exactly integral (6, 1, 7, 5) |
+| (h) | [`gross_zagier_check/`](gross_zagier_check/) | verify Gross-Zagier numerically: $L'(E,1) L(E_D,1) = \mathrm{Vol}(\Lambda)\hat{h}(P)/\sqrt{\|D\|}$ | RUNNABLE; 4 (E, K) pairs at $10^{-25}$, Heegner indices exactly integral (6, 1, 7, 5) |
+| (i) | [`strong_bsd_hp/`](strong_bsd_hp/) | strong BSD at working precision in the open regime: $\sigma$-function regulators + Cauchy-integral leading coefficients | RUNNABLE; $\#\operatorname{Sha} = 1$ to within $5 \times 10^{-28}$ on all five rank $\geq 2$ curves; first run caught a wrong bundled regulator (5077a1) |
 
 ## Detector coverage
 
@@ -40,10 +41,11 @@ python -m experiments.heegner_ceiling.e_e_heegner_ceiling
 python -m experiments.independent_points.e_f_independent_points
 python -m experiments.twist_parity.e_g_twist_parity
 python -m experiments.gross_zagier_check.e_h_gross_zagier
+python -m experiments.strong_bsd_hp.e_i_strong_bsd_hp
 ```
 
 Run from the repo root so `from experiments._shared import ...` resolves. The slowest steps are the rank-3 derivative search in (b), the 5077a1 Heegner sum in (e), and the twist confirmations in (g) (each tens of seconds to a few minutes).
 
 ## What would move the needle
 
-Experiments (a)-(d) validate the substrate. Experiments (e)-(h) probe the rank-2 wall itself: (e) implements the proven machine and measures where it dies, (f) constructs the half of the rank-2 object that is constructible, (g) maps the parity-blind locus in a family, and (h) verifies the Gross-Zagier identity itself to 20 digits, so the proven regime is a measured equation on our own substrate. The operational bar for any Research Direction 01 candidate is now concrete and two-sided: **produce non-torsion output on 389a1 where the Heegner machine in (e) provably outputs zero**, and output whose size does NOT factor through $L'(E/K, 1)$ (experiment (h) shows that one number is the machine's entire output), then pass Detector 1 (more than $w$) and Detector 3 (no geometric Frobenius). The next computational steps that would matter: a $p$-adic $L$-function / Mazur-Tate-Teitelbaum thread (scoring architecture 3), and 2-descent Selmer bounds to make (f)'s upper-bound gap explicit curve by curve.
+Experiments (a)-(d) validate the substrate. Experiments (e)-(i) probe the rank-2 wall itself: (e) implements the proven machine and measures where it dies, (f) constructs the half of the rank-2 object that is constructible, (g) maps the parity-blind locus in a family, (h) verifies the Gross-Zagier identity itself to 24 digits, so the proven regime is a measured equation on our own substrate, and (i) closes the strong-BSD formula to 27 digits on every open-regime curve with independently rebuilt regulators and leading coefficients. The operational bar for any Research Direction 01 candidate is now concrete and two-sided: **produce non-torsion output on 389a1 where the Heegner machine in (e) provably outputs zero**, and output whose size does NOT factor through $L'(E/K, 1)$ (experiment (h) shows that one number is the machine's entire output), then pass Detector 1 (more than $w$) and Detector 3 (no geometric Frobenius). The next computational steps that would matter: a $p$-adic $L$-function / Mazur-Tate-Teitelbaum thread (scoring architecture 3), and 2-descent Selmer bounds to make (f)'s upper-bound gap explicit curve by curve.
