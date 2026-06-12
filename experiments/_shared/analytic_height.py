@@ -156,6 +156,36 @@ class SigmaLattice:
                 f"G not periodic along {w} on {self.E.label}"
 
 
+def elliptic_log(E, P, L: SigmaLattice, samples: int = 400):
+    """Elliptic logarithm of a real rational point, determined up to sign.
+
+    Scans the real locus for a bracket of x(z) = x(P) and bisects: the
+    component through O is z in (0, w1), and for Delta > 0 the egg is
+    z in w2/2 + (0, w1). The returned z may correspond to P or -P; canonical
+    heights are even and Gram matrices here are built from heights of EXACT
+    point sums, so the sign ambiguity is harmless to every caller in this
+    codebase.
+    """
+    x0 = mp.mpf(P[0].numerator) / P[0].denominator
+    shifts = [mp.mpf(0)]
+    if L.disc > 0:
+        shifts.append(L.w2 / 2)
+    for shift in shifts:
+        def f(t):
+            return mp.re(L.x_of_z(t + shift)) - x0
+
+        ts = [L.w1 * k / samples for k in range(1, samples)]
+        prev_t, prev_v = ts[0], f(ts[0])
+        for t in ts[1:]:
+            v = f(t)
+            if mp.sign(v) != mp.sign(prev_v) and prev_v != 0:
+                root = mp.findroot(f, (prev_t, t), solver="bisect",
+                                   maxsteps=200)
+                return root + shift
+            prev_t, prev_v = t, v
+    raise ValueError(f"elliptic log not found for x = {x0} on {E.label}")
+
+
 def canonical_height_sigma(E, P, z, L: SigmaLattice):
     """hhat(P) to working precision, LMFDB normalization.
 
