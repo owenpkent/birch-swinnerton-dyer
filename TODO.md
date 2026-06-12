@@ -31,9 +31,10 @@ Tracked by Constellation. Checkboxes reflect real state.
 - [x] Substrate hardening: exact off-center functional-equation check installed as smoke test 7; nine wrong bundled bad-prime a_p signs found and fixed three independent ways
 - [ ] Score architecture 3 (Iwasawa theory) against the three detectors
 - [ ] Score architecture 4 (Euler systems) against the three detectors
-- [ ] Specify the rank-2 object precisely (the most-leveraged next move)
-- [ ] Run the rank-2 spec through Detector 1 and Detector 3
-- [ ] Numerical Gross-Zagier identity check (L'(E/K,1) = c hhat(y_K), extending experiment e)
+- [x] Specify the rank-2 object precisely: three clauses + executable test battery T1-T4 in `docs/03_research/research_directions/01_rank_two_object.md` (2026-06-11)
+- [x] Run the rank-2 spec through Detector 1 and Detector 3 (exclusion sections of the spec; multi-field Heegner retired by Gross-Kohnen-Zagier)
+- [x] Experiment (h) `gross_zagier_check/`: numerical Gross-Zagier verified on 4 (E, K) pairs to 1e-20 (37a1 over two fields, 43a1, 53a1); sigma-function heights + Delta < 0 lattice added to the substrate
+- [ ] Surveyor pass on the Kudla program (the live Clause 2 candidate: the only systematic source of second derivatives); Detector 3 audit of its Aux(E)
 - [ ] p-adic L-function / Mazur-Tate-Teitelbaum thread (architecture 3 scoring, computational side)
 - [ ] 2-descent Selmer bound to make experiment (f)'s upper-bound gap explicit per curve
 
