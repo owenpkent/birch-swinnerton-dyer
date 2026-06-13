@@ -9,7 +9,11 @@
 | `elliptic_curve.py` | The `EllipticCurve` class: point-count $a_p$, multiplicative $a_n$, the smoothed approximate functional equation for $L(E, s)$ and its derivatives at $s = 1$, the root number. |
 | `curve_data.py` | Bundled table of curves by Cremona label, ranks 0 to 3, with public LMFDB/Cremona invariants. Runs offline. |
 | `controls.py` | The three wrong-approach detectors (parity-only, Sha-finiteness assumed, function-field mirage) and the proven-vs-open control pair. |
-| `smoke_test.py` | Phase 0 validation: 6 checks on the substrate and detectors. |
+| `rational_points.py` | Exact (Fraction) group law, small-height point search, Neron-Tate canonical heights by exact doubling, Gram matrices and determinants. The Mordell-Weil side the $L$-function cannot see. |
+| `period_lattice.py` | Period lattice (rectangular $\Delta > 0$ and rhombic $\Delta < 0$), 2-torsion roots, Weierstrass parametrization. |
+| `analytic_height.py` | $\sigma$-function canonical heights to ~20 digits and the elliptic logarithm; the high-precision height substrate for experiments (h) and (i). |
+| `descent.py` | The 2-isogeny descent engine (experiment j): $\mathbb{Q}_p$-solubility lifter, Selmer group of a rational 2-isogeny, rigorous rank upper bound, and the long-model-to-2-torsion-form transform. |
+| `smoke_test.py` | Phase 0 validation: 8 checks on the substrate, detectors, and descent engine. |
 | `__init__.py` | Re-exports the public interface. |
 
 ## The EllipticCurve interface
@@ -39,7 +43,7 @@ See `controls.py` docstrings. In short: a method that gives only parity (Detecto
 python -m experiments._shared.smoke_test
 ```
 
-Expected: `Smoke test: 6/6 passed`.
+Expected: `Smoke test: 8/8 passed`.
 
 ## Data attribution
 

@@ -58,7 +58,7 @@ Three detectors in [`experiments/_shared/controls.py`](experiments/_shared/contr
 
 Plus the **control pair**: rank $\leq 1$ (proven) vs rank $\geq 2$ (open). A method must do something genuinely new in the open regime.
 
-Run `python -m experiments._shared.smoke_test` (7/7) to verify the substrate and detectors. Check 7 is the exact off-center functional equation, the test that catches a single wrong bad-prime $a_p$ (it found nine in the original bundled table).
+Run `python -m experiments._shared.smoke_test` (8/8) to verify the substrate and detectors. Check 7 is the exact off-center functional equation, the test that catches a single wrong bad-prime $a_p$ (it found nine in the original bundled table). Check 8 guards the 2-isogeny descent engine of experiment (j) (Selmer orders are 2-powers; bundled rank-0 2-torsion curves give upper bound = rank; the rank $\geq 2$ curves carry no rational 2-isogeny).
 
 ## Tech stack
 
@@ -89,6 +89,7 @@ python -m experiments.l_function_rank.e_a_analytic_rank
 python -m experiments.weak_bsd_table.e_b_weak_bsd
 python -m experiments.strong_bsd_quantities.e_c_strong_bsd
 python -m experiments.sato_tate.e_d_sato_tate
+python -m experiments.two_descent.e_j_two_descent
 
 # Build the Lean skeleton (requires elan + lake)
 cd lean; lake build
