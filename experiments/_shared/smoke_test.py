@@ -19,6 +19,11 @@ Validates:
      (and Sha = 1); on the congruent curve E_34 it gives the rank-2 upper bound;
      every Selmer group has 2-power order; and the rank >= 2 (f) curves have no
      rational 2-torsion, so the elementary descent provably does not start.
+  9. p-adic engine (experiment k): the j-series self-checks (c_0 = 744,
+     c_1 = 196884); the Tate parameter has ord_p(q) = v_p(Delta) on every
+     split-multiplicative prime-conductor curve; the Iwasawa log round-trips
+     under exp; and the exceptional-zero classification is correct (split
+     a_N = +1 gives multiplier 0, non-split a_N = -1 gives a unit).
 """
 
 from __future__ import annotations
@@ -176,6 +181,41 @@ def test_descent_engine():
     return ok_all
 
 
+def test_padic_engine():
+    print("Test 9: p-adic engine (experiment k)")
+    from experiments._shared.padic import (
+        j_coefficients, l_invariant, stabilization_multiplier,
+        weierstrass_invariants, valuation, padic_log_1unit, padic_exp,
+    )
+    ok_all = True
+    # j-series self-check
+    c = j_coefficients(3)
+    ok_all = ok_all and check("j-series c_0=744, c_1=196884",
+                              c[0] == 744 and c[1] == 196884)
+    # ord_p(q) == v_p(Delta) on split-multiplicative prime-conductor curves
+    for label in ("11a1", "389a1", "433a1"):
+        E = get_curve(label)
+        p = E.conductor
+        _, _, disc = weierstrass_invariants(E.a_invariants)
+        r = l_invariant(E.a_invariants, p, 12)
+        ok_all = ok_all and check(
+            f"{label}: ord_{p}(q) = v_{p}(Delta) = {valuation(disc, p)}",
+            r["e"] == valuation(disc, p), f"got {r['e']}")
+    # Iwasawa log round-trips under exp on a 1-unit
+    p = 11
+    t = (1 + p * 7) % (p ** 12)
+    ok_all = ok_all and check(
+        "exp_11(log_11(1+77)) = 1+77 (Iwasawa log valid)",
+        padic_exp(padic_log_1unit(t, p, 12), p, 12) == t % (p ** 12))
+    # exceptional-zero classification: split -> 0, non-split -> unit
+    split = stabilization_multiplier(1, 389, 12, multiplicative=True)
+    nonsplit = stabilization_multiplier(-1, 37, 12, multiplicative=True)
+    ok_all = ok_all and check(
+        "split a_N=+1 -> exceptional zero; non-split a_N=-1 -> none",
+        split["exceptional"] and not nonsplit["exceptional"])
+    return ok_all
+
+
 def main():
     results = [
         test_point_counting(),
@@ -186,6 +226,7 @@ def main():
         test_sha_flag(),
         test_functional_equation(),
         test_descent_engine(),
+        test_padic_engine(),
     ]
     print()
     n_pass = sum(results)
