@@ -14,6 +14,11 @@ Validates:
      check sees EVERY coefficient with weight ~ e^{-2 pi n / (2 sqrt N)}, so a
      single wrong a_p (even at p = N, invisible to the central-value tests)
      fails it. It caught nine wrong bundled bad-prime signs on 2026-06-09.
+  8. 2-isogeny descent engine (experiment j): on bundled rank-0 curves with a
+     rational 2-torsion point the descent upper bound equals the known rank
+     (and Sha = 1); on the congruent curve E_34 it gives the rank-2 upper bound;
+     every Selmer group has 2-power order; and the rank >= 2 (f) curves have no
+     rational 2-torsion, so the elementary descent provably does not start.
 """
 
 from __future__ import annotations
@@ -136,6 +141,41 @@ def test_functional_equation():
     return ok_all
 
 
+def test_descent_engine():
+    print("Test 8: 2-isogeny descent engine (experiment j)")
+    from experiments._shared.descent import (
+        descent_rank_bound, selmer_phi, isogenous_curve, to_2torsion_form,
+        rational_two_torsion_x,
+    )
+    ok_all = True
+    # bundled rank-0 curves with rational 2-torsion: upper bound == known rank
+    for label in ("14a1", "15a1", "17a1"):
+        E = get_curve(label)
+        ab = to_2torsion_form(E.a_invariants)
+        up = descent_rank_bound(*ab)["rank_upper_bound"]
+        ok_all = ok_all and check(
+            f"{label}: descent upper {up} = rank {E.rank} (Sha={E.sha_order})",
+            up == E.rank,
+        )
+    # congruent curve E_34: rank-2 upper bound
+    up34 = descent_rank_bound(0, -34 * 34)["rank_upper_bound"]
+    ok_all = ok_all and check("E_34: descent upper bound = 2", up34 == 2, f"got {up34}")
+    # Selmer groups have 2-power order (a wrong local decision breaks this)
+    for n in (5, 6, 17, 34):
+        a, b = 0, -n * n
+        ap, bp = isogenous_curve(a, b)
+        sizes = (len(selmer_phi(a, b)), len(selmer_phi(ap, bp)))
+        pow2 = all(s > 0 and (s & (s - 1)) == 0 for s in sizes)
+        ok_all = ok_all and check(f"E_{n}: Selmer orders {sizes} are 2-powers", pow2)
+    # the (f) rank >= 2 curves carry no rational 2-isogeny
+    for label in ("389a1", "433a1", "571a1", "643a1", "5077a1"):
+        E = get_curve(label)
+        none = (rational_two_torsion_x(E.a_invariants) == []
+                and to_2torsion_form(E.a_invariants) is None)
+        ok_all = ok_all and check(f"{label}: E[2] irreducible, descent does not start", none)
+    return ok_all
+
+
 def main():
     results = [
         test_point_counting(),
@@ -145,6 +185,7 @@ def main():
         test_parity_detector(),
         test_sha_flag(),
         test_functional_equation(),
+        test_descent_engine(),
     ]
     print()
     n_pass = sum(results)
