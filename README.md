@@ -16,7 +16,8 @@ birch-swinnerton-dyer/
 │   ├── 02_graduate/             # Modularity, Heegner points, Selmer/Sha, the four-level framing
 │   ├── 03_research/             # Current approaches, PROOF PROGRAM, research directions
 │   │   ├── research_directions/ # Numbered research-grade specs
-│   │   └── reading_notes/       # Notes on the reference library
+│   │   ├── reading_notes/       # Notes on the reference library
+│   │   └── engine/              # Design doc for the proof-search engine
 │   ├── implications/            # Why it matters (ranks, cryptography, Diophantine equations)
 │   ├── solutions/               # Known approaches to BSD and their obstructions
 │   ├── research_atlas/          # Master research map: all attempts, regimes, open problems
@@ -34,7 +35,9 @@ birch-swinnerton-dyer/
 │   ├── twist_parity/            # (g) twist family scan: where the root number goes blind
 │   ├── gross_zagier_check/      # (h) numerical Gross-Zagier, every factor independent
 │   ├── strong_bsd_hp/           # (i) strong BSD at working precision in the open regime
-│   └── two_descent/             # (j) 2-isogeny descent: the rigorous rank upper bound
+│   ├── two_descent/             # (j) 2-isogeny descent: the rigorous rank upper bound
+│   ├── padic_lfunction/         # (k) p-adic L-function: exceptional zero + MTT L-invariant
+│   └── engine/                  # (l) the proof-search engine: atlas-as-graph, frontier, AUDIT gate
 ├── references/                  # Reference library index (gitignored PDFs) + tracked bibliography
 ├── lean/                        # Lean 4 / Mathlib formal verification (skeleton)
 │   ├── lakefile.lean
@@ -83,7 +86,7 @@ Read every negative result here in that spirit. The fact that only ranks 0 and 1
 
 ## Experimental thread
 
-See [`experiments/PLAN.md`](experiments/PLAN.md). Ten runnable experiments built on a shared `EllipticCurve` / Hasse-Weil $L$-function interface and three wrong-approach detectors:
+See [`experiments/PLAN.md`](experiments/PLAN.md). Eleven runnable experiments built on a shared `EllipticCurve` / Hasse-Weil $L$-function interface and three wrong-approach detectors, plus a proof-search engine that ties them into one loop:
 
 - (a) **Analytic rank** from $L(E, s)$ derivatives at $s = 1$ via the approximate functional equation.
 - (b) **Weak BSD** on a bundled table of curves of rank 0, 1, 2, 3: analytic rank vs Mordell-Weil rank.
@@ -95,6 +98,9 @@ See [`experiments/PLAN.md`](experiments/PLAN.md). Ten runnable experiments built
 - (h) **Gross-Zagier check**: the identity behind the only proven regime, verified to 24 digits with every factor (the Heegner point, its $\sigma$-function height, both $L$-values) computed independently.
 - (i) **Strong BSD high precision**: $\#\mathrm{Sha} = 1$ to 27 digits on all five open-regime curves, with $\sigma$-function regulators and Cauchy-integral leading coefficients rebuilt from scratch.
 - (j) **2-isogeny descent**: the rigorous rank UPPER bound (f) leaves open, number-field-free; pins $\mathrm{rank}\,E_{34} = 2$ with no BSD input and names the cubic-field obstruction on the rank $\geq 2$ curves that carry no rational 2-isogeny.
+- (k) **p-adic L-function**: the Mazur-Tate-Teitelbaum thread (architecture 3); the exceptional zero classified and the $\mathcal{L}$-invariant computed to 20 base-$p$ digits across the bundled curves.
+
+Built on the same substrate and detectors, a **proof-search engine** ([`experiments/engine/`](experiments/engine/), spec in [`docs/03_research/engine/`](docs/03_research/engine/README.md)) encodes the research atlas as a typed proof graph and computes the frontier of the open regime: weak BSD in rank $\geq 2$ reduces to the single open object {rank_two_object}, strong BSD to {rank_two_object, higher_euler_system}, never through parity. It wires the three detectors as an automatic AUDIT gate and runs a PROPOSE+FALSIFY mining pass over the curve invariants. It is a sound bookkeeper and falsifier, not a solver. See experiment (l).
 
 Smoke test:
 ```powershell
@@ -128,6 +134,7 @@ Plus a **control pair**: a rank $\leq 1$ curve (BSD proven) versus an explicit r
 | Experiment (i): strong BSD high precision | Runnable; #Sha = 1 to 27 digits on all five open-regime curves |
 | Experiment (j): 2-isogeny descent | Runnable; rank E_34 = 2 proven, rank >= 2 curves carry no rational 2-isogeny |
 | Experiment (k): p-adic L-function (Mazur-Tate-Teitelbaum) | Runnable; exceptional zero classified, L-invariant computed to 20 base-p digits, Greenberg-Stevens RHS assembled on 11a1 |
+| Experiment (l): proof-search engine (atlas-as-graph + frontier + AUDIT) | Runnable; frontier of rank >= 2 BSD computes to {rank_two_object}, never via parity; detectors wired as an automatic gate; smoke still 9/9 |
 | Solutions / approach catalog | `docs/solutions/` |
 | Research atlas | `docs/research_atlas/` |
 | Docs (intuitive, undergrad, graduate, research) | Substantial |
@@ -156,4 +163,8 @@ python -m experiments.twist_parity.e_g_twist_parity
 python -m experiments.gross_zagier_check.e_h_gross_zagier
 python -m experiments.strong_bsd_hp.e_i_strong_bsd_hp
 python -m experiments.two_descent.e_j_two_descent
+python -m experiments.padic_lfunction.e_k_padic_lfunction
+
+# Run the proof-search engine (frontier + AUDIT + mining)
+python -m experiments.engine.e_l_engine
 ```

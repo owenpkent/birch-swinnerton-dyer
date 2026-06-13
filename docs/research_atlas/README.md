@@ -64,10 +64,13 @@ angle$: the $r$-th Taylor coefficient as self-intersection of the Heegner-Drinfe
 
 A construction that, on a rank $\geq 2$ curve, produces two provably independent rational points OR bounds $\operatorname{Sha}$ unconditionally. Untouched at the construction level. Multi-year, multi-person.
 
+The engine ([`experiments/engine/`](../../experiments/engine/)) now derives this object mechanically rather than asserting it: the frontier query for weak BSD in rank $\geq 2$ returns exactly `{rank_two_object}`, and for strong BSD `{rank_two_object, higher_euler_system}`, with no path through parity. "Where the proof must live" is a computed antichain, not a remembered paragraph.
+
 ## How to read the rest of the repo
 
 - Per-approach detail and obstructions: [`docs/solutions/`](../solutions/).
 - The proof program and research-grade specs: [`docs/03_research/`](../03_research/).
 - Why it matters: [`docs/implications/`](../implications/).
 - The computational thread that validates the substrate: [`experiments/PLAN.md`](../../experiments/PLAN.md).
+- This atlas as a machine-queryable proof graph (the frontier computed, not asserted): [`experiments/engine/`](../../experiments/engine/), specified in [`docs/03_research/engine/`](../03_research/engine/README.md).
 - Operating philosophy: [`docs/researcher_mindset.md`](../researcher_mindset.md).

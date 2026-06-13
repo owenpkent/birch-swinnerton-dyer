@@ -24,6 +24,7 @@
 | (i) | [`strong_bsd_hp/`](strong_bsd_hp/) | strong BSD at working precision in the open regime: $\sigma$-function regulators + Cauchy-integral leading coefficients | RUNNABLE; $\#\operatorname{Sha} = 1$ to within $5 \times 10^{-28}$ on all five rank $\geq 2$ curves; first run caught a wrong bundled regulator (5077a1) |
 | (j) | [`two_descent/`](two_descent/) | the rigorous upper bound (f) leaves open: 2-isogeny descent, number-field-free | RUNNABLE; $\mathrm{rank}\,E_{34} = 2$ PROVEN with no BSD input; the (f) curves shown to carry no rational 2-isogeny (wall named) |
 | (k) | [`padic_lfunction/`](padic_lfunction/) | the $p$-adic L-function thread (architecture 3): the exceptional zero and the Mazur-Tate-Teitelbaum $\mathcal{L}$-invariant | RUNNABLE; $\mathcal{L}_p(E) = \log_p(q)/\operatorname{ord}_p(q)$ computed to 20 base-$p$ digits, $\operatorname{ord}_p(q) = v_p(\Delta)$ verified, exceptional zero classified (split $a_N=+1$) across the bundled curves, Greenberg-Stevens RHS assembled on 11a1 |
+| (l) | [`engine/`](engine/) | the proof-search engine (meta-layer, not a numerical probe): the atlas as a typed proof graph, the frontier of the open object computed, the three detectors wired as an AUDIT gate, a PROPOSE+FALSIFY mining pass | RUNNABLE; frontier of weak BSD rank $\geq 2$ $=$ {rank_two_object}, strong BSD $=$ {rank_two_object, higher_euler_system}, never via parity; 4 methods audited (parity / Sha / mirage flagged); mining classifies R4 a cliff casualty, R2 a clean (necessary-only) survivor; offline $\approx 0.2$s |
 
 ## Detector coverage
 
@@ -31,6 +32,7 @@
 - **Detector 2 (Sha-finiteness):** invoked in (b) and (c). Flagged OPEN for every rank $\geq 2$ curve. (f) makes the asymmetry concrete: the lower bound rank $\geq r$ is constructed; the upper bound is exactly the missing Selmer/Sha input. (j) exhibits the detector rather than assuming it: where the upper bound IS computable (a rational 2-isogeny exists) descent still bounds only $\mathrm{Sha}[2]$, and on $E_{17}$ that slice is nonzero, so the rank is not pinned.
 - **Detector 3 (function-field mirage):** documented in [`_shared/controls.py`](_shared/controls.py); none of the experiments imports a geometric Frobenius. (f) names the gap: over $\mathbb{F}_q(C)$ the upper bound comes from $H^2$ of the elliptic surface; over $\mathbb{Q}$ nothing here supplies it. (j) makes it per-curve: the rank $\geq 2$ targets carry no rational 2-isogeny, so the general descent there needs the class group and units of a cubic field, the object $\mathbb{Q}$ does not hand over. (k) passes it cleanly: the $p$-adic thread uses the cyclotomic $\mathbb{Z}_p$-extension and weight deformations, no surface and no geometric Frobenius.
 - **Architecture 3 (Iwasawa), Detector 2 (Sha):** invoked in (k). The exceptional zero and the $\mathcal{L}$-invariant are exact $p$-adic data (Detector 1 passed: finer than parity), but the bridge $L_p \to \#\mathrm{Sha}[p^\infty]$ is the Iwasawa main conjecture, a conditional input controlling one prime at a time; rank $\geq 2$ global finiteness stays open. See the [architecture-3 scorecard](../docs/03_research/research_directions/03_padic_archimedean.md).
+- **The engine (experiment (l)):** the three detectors are promoted from a manual checklist to an automatic AUDIT gate ([`engine/audit.py`](engine/audit.py), a pure wrapper over [`controls.py`](_shared/controls.py)), and the atlas is encoded as a proof graph ([`engine/atlas_graph.py`](engine/atlas_graph.py)) so the frontier of the open regime is computed, not asserted. The parity wall is enforced structurally: parity is its own node with no edge into any full-rank claim, so no support set for weak BSD in rank $\geq 2$ ever routes through it. Spec: [`docs/03_research/engine/`](../docs/03_research/engine/README.md).
 
 ## How to run
 
@@ -47,6 +49,7 @@ python -m experiments.gross_zagier_check.e_h_gross_zagier
 python -m experiments.strong_bsd_hp.e_i_strong_bsd_hp
 python -m experiments.two_descent.e_j_two_descent
 python -m experiments.padic_lfunction.e_k_padic_lfunction
+python -m experiments.engine.e_l_engine
 ```
 
 Run from the repo root so `from experiments._shared import ...` resolves. The slowest steps are the rank-3 derivative search in (b), the 5077a1 Heegner sum in (e), and the twist confirmations in (g) (each tens of seconds to a few minutes).
