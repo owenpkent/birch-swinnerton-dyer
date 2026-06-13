@@ -8,10 +8,20 @@ An Euler system is a norm-compatible family of Galois cohomology classes $\{c_F\
 
 We want a system whose derived bound is sharp enough to force $\#\operatorname{Sha} < \infty$ on a curve of analytic rank $\geq 2$, without assuming finiteness as input.
 
-## Detector checks
+## Architecture-4 detector scorecard (Euler systems)
 
-- **Detector 2 (Sha-finiteness).** The whole point: the system must PROVE finiteness, not assume it. Any step that uses $\operatorname{Sha}[p^\infty]$ cofinite or similar in the rank $\geq 2$ regime fails the detector.
-- **Detector 3 (function-field mirage).** Over $\mathbb{F}_q(C)$, finiteness of the Brauer group gives the bound via etale cohomology of the surface. A number-field Euler system must not be a disguised version of that cohomological argument.
+Scored against the three detectors and the rank control pair. Reading notes behind the rows: [Kolyvagin 1990](../reading_notes/Kolyvagin-1990-Euler-Systems.md) (the Heegner-point system), [Coates-Wiles 1977](../reading_notes/Coates-Wiles-1977-BSD.md) (elliptic units, rank 0), and Kato's Beilinson-element system (via the [Skinner-Urban note](../reading_notes/Skinner-Urban-2014-Iwasawa-Main-GL2.md), which uses Kato's divisibility).
+
+| Detector | Verdict | Where exactly |
+|---|---|---|
+| **1 (parity-only)** | PASSES | Each known system produces an exact rank value and exact triviality of $\operatorname{Sha}_p$ (Kolyvagin: $\operatorname{Sel}_p$ cyclic, rank $1$), not rank mod 2. Strictly finer than the root number. |
+| **2 (Sha-finiteness)** | THE WALL, and the point of the direction | Kolyvagin's system PROVES $\#\operatorname{Sha}<\infty$ but only because it has a single non-torsion seed (the Heegner point), so it certifies rank $\leq 1$; the Selmer bound $\dim\operatorname{Sel}_p \leq 1 + 2\operatorname{ord}_p[\cdots]$ is finite precisely because there is one degree of freedom. Kato's system gives one divisibility (analytic side bounds algebraic), tied to the order of vanishing it sees, which is $\leq 1$. A genuine rank-$\geq 2$ system must prove finiteness with $\geq 2$ seeds; none is known. |
+| **3 (function-field mirage)** | PASSES, with the contrast named | Over $\mathbb{F}_q(C)$ finiteness of $\operatorname{Br}(X)$ (Tate/Milne) gives the bound via etale cohomology of the surface, rank-uniformly; the number-field Euler system is genuinely number-field-native (Chebotarev over $K(E_p)$, Tate local duality) and must not be a disguised surface argument. The contrast localizes what $\mathbf{Q}$ lacks: a second cohomological degree of freedom the geometric Frobenius supplies for free. |
+| **Control pair** | proven side; structural ceiling is one seed | The axioms (norm relation $\operatorname{Tr}_\ell y_n = a_\ell y_m$, Frobenius congruence, sign $\epsilon_n$) specify exactly what a rank-$\geq 2$ system must reproduce; the known systems satisfy them with a single class and so cap at rank $1$. |
+
+## What a rank $\geq 2$ system must satisfy
+
+A norm-compatible family $\{c_F\}$ whose derived classes span a $\geq 2$-dimensional subspace of $\operatorname{Sel}_p(E/\mathbb{Q})$, with norm relations sensitive to the *second-order* vanishing of the associated $L$-value (the rank-1 systems "see" only the first derivative). The closest live inputs are generalized Kato classes and the elliptic Stark conjecture (Darmon-Lauder-Rotger), whose rank-2 behavior is partially conjectural. Computationally, experiment (j) ([`two_descent/`](../../../experiments/two_descent/)) exhibits the one-seed ceiling from the descent side: where a rational $2$-isogeny exists the Selmer bound is two-sided and pins the rank ($\operatorname{rank} E_{34} = 2$), but the rank-$\geq 2$ bundled curves carry no such isogeny, so the elementary system does not even start.
 
 ## Why it is hard
 

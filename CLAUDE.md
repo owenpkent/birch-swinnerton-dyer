@@ -58,7 +58,7 @@ Three detectors in [`experiments/_shared/controls.py`](experiments/_shared/contr
 
 Plus the **control pair**: rank $\leq 1$ (proven) vs rank $\geq 2$ (open). A method must do something genuinely new in the open regime.
 
-Run `python -m experiments._shared.smoke_test` (8/8) to verify the substrate and detectors. Check 7 is the exact off-center functional equation, the test that catches a single wrong bad-prime $a_p$ (it found nine in the original bundled table). Check 8 guards the 2-isogeny descent engine of experiment (j) (Selmer orders are 2-powers; bundled rank-0 2-torsion curves give upper bound = rank; the rank $\geq 2$ curves carry no rational 2-isogeny).
+Run `python -m experiments._shared.smoke_test` (9/9) to verify the substrate and detectors. Check 7 is the exact off-center functional equation, the test that catches a single wrong bad-prime $a_p$ (it found nine in the original bundled table). Check 8 guards the 2-isogeny descent engine of experiment (j) (Selmer orders are 2-powers; bundled rank-0 2-torsion curves give upper bound = rank; the rank $\geq 2$ curves carry no rational 2-isogeny). Check 9 guards the p-adic engine of experiment (k) (j-series self-check $c_0=744$, $c_1=196884$; $\operatorname{ord}_p(q) = v_p(\Delta)$ on split-multiplicative curves; the Iwasawa log round-trips under exp; the exceptional zero is classified correctly).
 
 ## Tech stack
 

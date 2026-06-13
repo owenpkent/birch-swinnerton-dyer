@@ -116,7 +116,7 @@ Plus a **control pair**: a rank $\leq 1$ curve (BSD proven) versus an explicit r
 | Area | Status |
 |------|--------|
 | Repo structure | Complete |
-| Experiments: Phase 0 infrastructure (EllipticCurve / L-function + detectors + smoke test) | Complete, smoke test 8/8 (check 7: exact off-center functional equation; check 8: 2-isogeny descent engine) |
+| Experiments: Phase 0 infrastructure (EllipticCurve / L-function + detectors + smoke test) | Complete, smoke test 9/9 (check 7: exact off-center functional equation; check 8: 2-isogeny descent engine; check 9: p-adic engine) |
 | Experiment (a): analytic rank from L-derivatives | Runnable |
 | Experiment (b): weak BSD on rank 0-3 table | Runnable |
 | Experiment (c): strong BSD quantities -> conjectural #Sha | Runnable |
@@ -127,6 +127,7 @@ Plus a **control pair**: a rank $\leq 1$ curve (BSD proven) versus an explicit r
 | Experiment (h): numerical Gross-Zagier | Runnable; 4 (E, K) pairs to 24 digits, Heegner indices exactly integral |
 | Experiment (i): strong BSD high precision | Runnable; #Sha = 1 to 27 digits on all five open-regime curves |
 | Experiment (j): 2-isogeny descent | Runnable; rank E_34 = 2 proven, rank >= 2 curves carry no rational 2-isogeny |
+| Experiment (k): p-adic L-function (Mazur-Tate-Teitelbaum) | Runnable; exceptional zero classified, L-invariant computed to 20 base-p digits, Greenberg-Stevens RHS assembled on 11a1 |
 | Solutions / approach catalog | `docs/solutions/` |
 | Research atlas | `docs/research_atlas/` |
 | Docs (intuitive, undergrad, graduate, research) | Substantial |

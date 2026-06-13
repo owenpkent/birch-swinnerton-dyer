@@ -13,7 +13,8 @@
 | `period_lattice.py` | Period lattice (rectangular $\Delta > 0$ and rhombic $\Delta < 0$), 2-torsion roots, Weierstrass parametrization. |
 | `analytic_height.py` | $\sigma$-function canonical heights to ~20 digits and the elliptic logarithm; the high-precision height substrate for experiments (h) and (i). |
 | `descent.py` | The 2-isogeny descent engine (experiment j): $\mathbb{Q}_p$-solubility lifter, Selmer group of a rational 2-isogeny, rigorous rank upper bound, and the long-model-to-2-torsion-form transform. |
-| `smoke_test.py` | Phase 0 validation: 8 checks on the substrate, detectors, and descent engine. |
+| `padic.py` | The p-adic engine (experiment k): Weierstrass invariants, the Tate parameter $q_E$ by $p$-adic inversion of a self-generated $j$-series, the Iwasawa logarithm, the Mazur-Tate-Teitelbaum $\mathcal{L}$-invariant $\log_p(q)/\operatorname{ord}_p(q)$, and the ordinary unit root by Hensel. |
+| `smoke_test.py` | Phase 0 validation: 9 checks on the substrate, detectors, descent engine, and p-adic engine. |
 | `__init__.py` | Re-exports the public interface. |
 
 ## The EllipticCurve interface
@@ -43,7 +44,7 @@ See `controls.py` docstrings. In short: a method that gives only parity (Detecto
 python -m experiments._shared.smoke_test
 ```
 
-Expected: `Smoke test: 8/8 passed`.
+Expected: `Smoke test: 9/9 passed`.
 
 ## Data attribution
 

@@ -9,7 +9,7 @@ Tracked by Constellation. Checkboxes reflect real state.
 - [x] EllipticCurve / Hasse-Weil L-function interface (`experiments/_shared/elliptic_curve.py`)
 - [x] Bundled curve table, ranks 0 to 3, public LMFDB/Cremona invariants (`curve_data.py`)
 - [x] Three wrong-approach detectors + control pair (`controls.py`)
-- [x] Smoke test, 8/8 passing (`smoke_test.py`; check 7 added 2026-06-09, check 8 added 2026-06-12)
+- [x] Smoke test, 9/9 passing (`smoke_test.py`; check 7 added 2026-06-09, check 8 + check 9 added 2026-06-12)
 - [x] Experiment (a): analytic rank from L-derivatives
 - [x] Experiment (b): weak BSD table (analytic rank vs Mordell-Weil rank)
 - [x] Experiment (c): strong BSD quantities, conjectural #Sha
@@ -29,14 +29,14 @@ Tracked by Constellation. Checkboxes reflect real state.
 - [x] Experiment (f) `independent_points/`: the constructible half of the rank-2 object built from scratch (exact search + Neron-Tate Gram determinant reproduces all five open-regime regulators at index 1); the upper bound named as the one-sided gap
 - [x] Experiment (g) `twist_parity/`: parity-blind locus mapped in twist families of 11a1 and 37a1 (11 analytic-rank-2 twists invisible to the root number)
 - [x] Substrate hardening: exact off-center functional-equation check installed as smoke test 7; nine wrong bundled bad-prime a_p signs found and fixed three independent ways
-- [ ] Score architecture 3 (Iwasawa theory) against the three detectors
-- [ ] Score architecture 4 (Euler systems) against the three detectors
+- [x] Score architecture 3 (Iwasawa theory) against the three detectors: full scorecard in `03_padic_archimedean.md` + MTT/Greenberg-Stevens reading note + atlas row (2026-06-12)
+- [x] Score architecture 4 (Euler systems) against the three detectors: full scorecard + rank-$\geq 2$ norm relations in `02_higher_rank_euler_system.md` (2026-06-12)
 - [x] Specify the rank-2 object precisely: three clauses + executable test battery T1-T4 in `docs/03_research/research_directions/01_rank_two_object.md` (2026-06-11)
 - [x] Run the rank-2 spec through Detector 1 and Detector 3 (exclusion sections of the spec; multi-field Heegner retired by Gross-Kohnen-Zagier)
 - [x] Experiment (h) `gross_zagier_check/`: numerical Gross-Zagier verified on 4 (E, K) pairs to 1e-20 (37a1 over two fields, 43a1, 53a1); sigma-function heights + Delta < 0 lattice added to the substrate
 - [x] Surveyor pass on the Kudla program + Yun-Zhang shtukas (2 reading notes, atlas scorecard rows; the wall localized to two imports: the r legs and the Frobenius twist) (2026-06-11)
 - [x] Experiment (i) `strong_bsd_hp/`: strong BSD at working precision in the open regime; #Sha = 1 to within 5e-28 on all five rank >= 2 curves; caught + fixed the wrong bundled 5077a1 regulator (third regulator error) and a silent quadrature precision loss (2026-06-12)
-- [ ] p-adic L-function / Mazur-Tate-Teitelbaum thread (architecture 3 scoring, computational side)
+- [x] Experiment (k) `padic_lfunction/`: the p-adic L-function / Mazur-Tate-Teitelbaum thread (architecture 3, computational side). New p-adic engine `_shared/padic.py` (Tate parameter by j-series inversion, Iwasawa log, the $\mathcal{L}$-invariant, ordinary unit root); the exceptional zero classified and $\mathcal{L}_p(E)$ computed to 20 base-$p$ digits across the bundled curves; new smoke check 9 (2026-06-12)
 - [x] Experiment (j) `two_descent/`: 2-isogeny descent makes experiment (f)'s upper-bound gap explicit per curve; rank E_34 = 2 proven number-field-free, the rank >= 2 curves shown to carry no rational 2-isogeny (cubic-field obstruction named); new descent engine + smoke check 8 (2026-06-12)
 
 ## Phase 2: Construction (not started)
