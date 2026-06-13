@@ -19,6 +19,11 @@ the PROPOSE+FALSIFY+AUDIT miner. It does three things, offline and fast:
   3. MINE. Run the relation library and print the scorecard, separating
      casualties at the cliff from survivors-with-caveat from clean survivors.
 
+  4. LOCALIZE. For a candidate expressed as a residual, build the curve x rank
+     and curve x prime heat-maps and diagnose WHERE it breaks: the cliff (holds
+     through rank <= 1, breaks at rank >= 2), a proven-regime break, or a
+     survivor. The cliff diagnosis is the same wall the miner flags, now measured.
+
 WHY this is experiment (l) and not a proof: it proves nothing about BSD in
 rank >= 2. It makes the SHAPE of the problem mechanical: the frontier is data,
 the detectors gate every proposed step, and a relation that only reproduces the
@@ -38,6 +43,15 @@ from .atlas_graph import build_atlas_graph
 from .frontier import report
 from .audit import Method, audit_method
 from .mine import mine, scorecard, live_falsification_demo
+from .localize import (
+    localize,
+    localize_primes,
+    render,
+    render_primes,
+    DEMO_CLIFF,
+    DEMO_SURVIVOR,
+    DEMO_PRIME_LOCATOR,
+)
 
 
 def _section(title: str) -> None:
@@ -129,6 +143,23 @@ def main() -> int:
     print(scorecard(rows))
     print()
     print(live_falsification_demo())
+
+    # -- 4. LOCALIZE -------------------------------------------------------
+    _section("SECTION 4  LOCALIZE: where does a candidate break? (curve x rank, curve x prime)")
+    print(render(localize(DEMO_CLIFF)))
+    print()
+    print(render(localize(DEMO_SURVIVOR)))
+    print()
+    print(render_primes(localize_primes(
+        DEMO_PRIME_LOCATOR,
+        curves=[get_curve(l) for l in ("11a1", "14a1", "15a1", "26a1")],
+    )))
+    print()
+    print("Reading: the cliff candidate holds through rank <= 1 and first breaks")
+    print("at rank 2 (the Detector-1 signature, with the residual growing into the")
+    print("open regime); the survivor never breaks (a necessary condition only);")
+    print("the prime grid isolates each curve's bad primes. LOCALIZE turns a failed")
+    print("FALSIFY into a diagnosis for the next PROPOSE; it proves nothing alone.")
 
     # -- closing honesty line ---------------------------------------------
     _section("ENGINE VERDICT")

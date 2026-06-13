@@ -118,6 +118,7 @@ What ships now (`experiments/engine/`):
 | `frontier.py` | FRONTIER: backward cut search, minimal open lemma-sets, leverage ranking |
 | `audit.py` | AUDIT: the three detectors from [`controls.py`](../../../experiments/_shared/controls.py) wired as an automatic edge gate |
 | `mine.py` | PROPOSE (data-mining mode): relation search over curve invariants, emits conjecture nodes for FALSIFY |
+| `localize.py` | FALSIFY/LOCALIZE: residual heat-maps (curve $\times$ rank, curve $\times$ prime) with an automatic break-rank diagnosis (cliff vs proven-regime break vs survivor) |
 | `e_l_engine.py` | the driver: runs the loop over the bundled database, prints the current minimal open set per regime |
 
 Run it offline as a module, consistent with the rest of the thread:
