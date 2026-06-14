@@ -24,6 +24,11 @@ Validates:
      split-multiplicative prime-conductor curve; the Iwasawa log round-trips
      under exp; and the exceptional-zero classification is correct (split
      a_N = +1 gives multiplier 0, non-split a_N = -1 gives a unit).
+ 10. theta shadow (experiment m): the codim-1 Kudla shadow. Tunnell's
+     weight-3/2 coefficient c_3 = -4 by from-scratch lattice counting, and the
+     Waldspurger proportionality constant kappa = Omega_{E_1}/32 matches the CM
+     closed form 2 pi / AGM(1, sqrt 2) / 32 to 8 digits (the rank-1 shadow; the
+     rank-2 / codim-2 Clause-2 object stays OPEN, Detector 3).
 """
 
 from __future__ import annotations
@@ -216,6 +221,25 @@ def test_padic_engine():
     return ok_all
 
 
+def test_theta_shadow():
+    print("Test 10: theta shadow engine (experiment m)")
+    from experiments.theta_shadow.e_m_theta_shadow import (
+        tunnell_coefficient, kappa_closed_form,
+    )
+    ok_all = True
+    # Tunnell c_3 = -4 from the from-scratch integer-triple lattice count
+    ok_all = ok_all and check(
+        "Tunnell c_3 = -4 (lattice count)", tunnell_coefficient(3) == -4,
+        f"got {tunnell_coefficient(3)}")
+    # Waldspurger constant kappa = Omega_{E_1}/32, two ways agree to 8 digits
+    kappa, omega, omega_cm = kappa_closed_form()
+    ok_all = ok_all and check(
+        "kappa = Omega_{E1}/32 = 2pi/AGM(1,sqrt2)/32 to 8 digits",
+        abs(omega - omega_cm) < 1e-8,
+        f"kappa = {mp.nstr(kappa, 10)}")
+    return ok_all
+
+
 def main():
     results = [
         test_point_counting(),
@@ -227,6 +251,7 @@ def main():
         test_functional_equation(),
         test_descent_engine(),
         test_padic_engine(),
+        test_theta_shadow(),
     ]
     print()
     n_pass = sum(results)

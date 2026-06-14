@@ -289,7 +289,8 @@ CONSTRUCTIONS: List[Construction] = [
         known_status=("The only systematic source of SECOND derivatives in "
                       "arithmetic geometry today; the two bridges (Eisenstein -> "
                       "L(E,s), cycle -> point) are OPEN over Q; Yun-Zhang prove the "
-                      "all-orders shape over function fields."),
+                      "all-orders shape over function fields. Specified in "
+                      "Direction 04; computable rank-1 shadow in experiment (m)."),
     ),
     Construction(
         name="higher_euler_system",

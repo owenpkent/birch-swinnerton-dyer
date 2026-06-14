@@ -4,7 +4,7 @@
 
 ## L1. The substrate is validated end to end
 
-The smoke test passes 9/9 (check 7 is the exact off-center functional equation, check 8 the 2-isogeny descent engine, check 9 the p-adic engine of experiment k). Point counting reproduces known $a_p$ for 11a1 ($a_2 = -2$, $a_3 = -1$, $a_5 = 1$, $a_7 = -2$, $a_{13} = 4$) and respects the Hasse bound. The multiplicative $a_n$ recurrence is correct ($a_4 = a_2^2 - 2$, $a_6 = a_2 a_3$). The smoothed AFE gives $L(11a1, 1) \approx 0.2538$ (rank 0, nonzero) and $L(37a1, 1) \approx 0$ (rank 1). The whole analytic pipeline is trustworthy at the bundled conductors.
+The smoke test passes 10/10 (check 7 is the exact off-center functional equation, check 8 the 2-isogeny descent engine, check 9 the p-adic engine of experiment k, check 10 the theta-shadow engine of experiment m). Point counting reproduces known $a_p$ for 11a1 ($a_2 = -2$, $a_3 = -1$, $a_5 = 1$, $a_7 = -2$, $a_{13} = 4$) and respects the Hasse bound. The multiplicative $a_n$ recurrence is correct ($a_4 = a_2^2 - 2$, $a_6 = a_2 a_3$). The smoothed AFE gives $L(11a1, 1) \approx 0.2538$ (rank 0, nonzero) and $L(37a1, 1) \approx 0$ (rank 1). The whole analytic pipeline is trustworthy at the bundled conductors.
 
 ## L2. Weak BSD holds on every bundled curve, including all rank-2 and rank-3 cases
 

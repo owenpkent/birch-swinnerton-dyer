@@ -44,7 +44,7 @@ See `controls.py` docstrings. In short: a method that gives only parity (Detecto
 python -m experiments._shared.smoke_test
 ```
 
-Expected: `Smoke test: 9/9 passed`.
+Expected: `Smoke test: 10/10 passed`.
 
 ## Data attribution
 

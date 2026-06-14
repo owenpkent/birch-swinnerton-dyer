@@ -73,4 +73,5 @@ The engine ([`experiments/engine/`](../../experiments/engine/)) now derives this
 - Why it matters: [`docs/implications/`](../implications/).
 - The computational thread that validates the substrate: [`experiments/PLAN.md`](../../experiments/PLAN.md).
 - This atlas as a machine-queryable proof graph (the frontier computed, not asserted): [`experiments/engine/`](../../experiments/engine/), specified in [`docs/03_research/engine/`](../03_research/engine/README.md).
+- The Kudla Clause-2 bridge, specified (the live candidate the engine surfaced), plus its computable rank-1 shadow: [`04_kudla_clause_two_bridge.md`](../03_research/research_directions/04_kudla_clause_two_bridge.md) and experiment (m) [`experiments/theta_shadow/`](../../experiments/theta_shadow/).
 - Operating philosophy: [`docs/researcher_mindset.md`](../researcher_mindset.md).
