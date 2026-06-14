@@ -72,14 +72,15 @@ ORCHESTRATOR tracks these in PHASE_STATE.md.
 
 ## 6. Current state
 
-**Phase 0 (Foundation) infrastructure is in place.** The repo has:
+**Phase 0 (Foundation) and Phase 1's computational and scoring front are complete.** The repo has:
 - The `EllipticCurve` / Hasse-Weil $L$-function interface with point-count $a_p$, multiplicative $a_n$, and the smoothed AFE for $L(E, s)$ and its derivatives at $s = 1$.
 - The three wrong-approach detectors plus the proven-vs-open control pair.
 - A bundled table of curves (rank 0-3) by Cremona label with public LMFDB/Cremona invariants.
-- Four runnable experiments (analytic rank, weak BSD table, strong BSD quantities, Sato-Tate).
-- The layered docs, the research atlas, the research directions, and the Lean skeleton.
+- Thirteen runnable experiments (a)-(n): the substrate validators (analytic rank, weak BSD table, strong BSD quantities, Sato-Tate), the rank-2-wall probes (Heegner ceiling, independent points, twist parity, Gross-Zagier, strong BSD high-precision, 2-descent, the $p$-adic $L$-function), and the live research fronts (the Kudla theta shadow (m), the $p$-adic height regulator (n)). Smoke test 11/11.
+- The proof-search engine (experiment (l), [`experiments/engine/`](experiments/engine/)): the atlas as a typed proof graph, the three detectors as an automatic AUDIT gate, and FRONTIER / PROPOSE / LOCALIZE / VERIFY over the bundled curves.
+- The layered docs, the research atlas, five numbered research directions (01-05), and the Lean skeleton (with engine-emitted obligations).
 
-**Not yet started**: multi-agent orchestration software, Lean Mathlib expansion beyond the skeleton, a serious multi-year compute budget. As of 2026, this is a target design plus a working experimental substrate, not an operating multi-year program.
+**Not yet started**: full multi-agent orchestration software (the proof-search engine is a first, single-process step toward it), Lean Mathlib expansion beyond the skeleton, a serious multi-year compute budget. As of 2026, this is a target design plus a working experimental substrate, not an operating multi-year program.
 
 ## 7. For someone picking up this repo
 
@@ -87,7 +88,7 @@ ORCHESTRATOR tracks these in PHASE_STATE.md.
 2. **Read** [`experiments/LEARNINGS.md`](experiments/LEARNINGS.md).
 3. **Read** [`STATE_OF_THE_PROGRAM.md`](STATE_OF_THE_PROGRAM.md).
 4. **Read** [`.claude/agents/orchestrator.md`](.claude/agents/orchestrator.md).
-5. **Run** the smoke test and the four experiments to confirm the substrate.
+5. **Run** the smoke test (11/11) and the experiments to confirm the substrate.
 6. **Deploy** the agents ORCHESTRATOR recommends.
 7. **Commit** the session's work.
 8. **Update** PHASE_STATE.md.
