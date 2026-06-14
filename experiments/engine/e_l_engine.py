@@ -24,6 +24,17 @@ the PROPOSE+FALSIFY+AUDIT miner. It does three things, offline and fast:
      through rank <= 1, breaks at rank >= 2), a proven-regime break, or a
      survivor. The cliff diagnosis is the same wall the miner flags, now measured.
 
+  5. PROPOSE. Run the library of candidate rank >= 2 construction classes through
+     the Direction-01 test battery (T1 nondegeneracy on 389a1, T2 second-order
+     tie) plus the detectors. The honest result: every actual construction is
+     first-derivative-bottlenecked, retired (GKZ), the open Clause-2 candidate, or
+     the Selmer lane; the only T1-passer is non-constructive search.
+
+  6. VERIFY. Emit a Lean obligation per open frontier node, in the skeleton style,
+     referencing only identifiers that exist. Every body is a sorry; the frontier
+     object's obligation corresponds to the skeleton's rankTwoCertificate. VERIFY
+     states what would have to be closed; it closes nothing.
+
 WHY this is experiment (l) and not a proof: it proves nothing about BSD in
 rank >= 2. It makes the SHAPE of the problem mechanical: the frontier is data,
 the detectors gate every proposed step, and a relation that only reproduces the
@@ -36,6 +47,8 @@ Run from the repo root:
 """
 
 from __future__ import annotations
+
+import sys
 
 from experiments._shared import get_curve
 
@@ -52,6 +65,8 @@ from .localize import (
     DEMO_SURVIVOR,
     DEMO_PRIME_LOCATOR,
 )
+from .propose import propose, scorecard as propose_scorecard
+from .verify import emit_obligations, report as verify_report, theorem_text
 
 
 def _section(title: str) -> None:
@@ -78,6 +93,13 @@ def _print_audit(name: str, verdict) -> None:
 
 
 def main() -> int:
+    # The VERIFY section prints real Lean (with characters like the leq sign and
+    # the reals symbol). Make stdout utf-8 so the driver runs on a cp1252 console.
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
     open_curve = get_curve("389a1")  # the rank-2 open-regime control
 
     # -- 1. FRONTIER -------------------------------------------------------
@@ -160,6 +182,23 @@ def main() -> int:
     print("open regime); the survivor never breaks (a necessary condition only);")
     print("the prime grid isolates each curve's bad primes. LOCALIZE turns a failed")
     print("FALSIFY into a diagnosis for the next PROPOSE; it proves nothing alone.")
+
+    # -- 5. PROPOSE --------------------------------------------------------
+    _section("SECTION 5  PROPOSE: candidate rank >= 2 constructions vs the Direction-01 bar")
+    print(propose_scorecard(propose()))
+
+    # -- 6. VERIFY ---------------------------------------------------------
+    _section("SECTION 6  VERIFY: emit Lean obligations from the frontier (statements, not proofs)")
+    obligations = emit_obligations(graph)
+    print(verify_report(obligations))
+    print()
+    print("Emitted Lean (the frontier object, excerpt):")
+    rt = next(o for o in obligations if o.node_key == "rank_two_object")
+    print(theorem_text(graph, rt))
+    print()
+    print("Full file written by `python -m experiments.engine.verify` to")
+    print("lean/BSD/EngineObligations.lean. Discharge = lake build with a real")
+    print("construction; every obligation is a sorry, nothing is proven here.")
 
     # -- closing honesty line ---------------------------------------------
     _section("ENGINE VERDICT")

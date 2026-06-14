@@ -119,7 +119,9 @@ What ships now (`experiments/engine/`):
 | `audit.py` | AUDIT: the three detectors from [`controls.py`](../../../experiments/_shared/controls.py) wired as an automatic edge gate |
 | `mine.py` | PROPOSE (data-mining mode): relation search over curve invariants, emits conjecture nodes for FALSIFY |
 | `localize.py` | FALSIFY/LOCALIZE: residual heat-maps (curve $\times$ rank, curve $\times$ prime) with an automatic break-rank diagnosis (cliff vs proven-regime break vs survivor) |
-| `e_l_engine.py` | the driver: runs the loop over the bundled database, prints the current minimal open set per regime |
+| `propose.py` | PROPOSE: candidate rank $\geq 2$ construction classes run through the Direction-01 battery (T1 nondegeneracy, T2 second-order tie) plus the detectors |
+| `verify.py` | VERIFY: emits a Lean obligation (a `sorry` statement) per open frontier node against the skeleton API, written to [`lean/BSD/EngineObligations.lean`](../../../lean/BSD/EngineObligations.lean) |
+| `e_l_engine.py` | the driver: runs all six operators over the bundled database, prints the current minimal open set per regime |
 
 Run it offline as a module, consistent with the rest of the thread:
 
@@ -129,7 +131,7 @@ python -m experiments.engine.e_l_engine
 
 Future work (named, not shipped):
 
-- **Live PROPOSE of constructions.** v0 mines numerical relations; it does not generate candidate rank-$\geq 2$ point constructions. That is the BUILDER's creative core (section 6).
+- **Live PROPOSE of a new construction.** v0 mines numerical relations and runs the candidate construction CLASSES through the Direction-01 battery (T1/T2 plus the detectors), reproducing which are first-derivative-bottlenecked, retired (GKZ), or the live Clause-2 candidate. What it does not do is GENERATE a genuinely new rank-$\geq 2$ construction; that is the BUILDER's open creative core (section 6).
 - **Lean PROMOTE.** v0's VERIFY emits a Lean statement; closing the `sorry` (the actual proof) is the VERIFIER's manual work, not automated.
 - **Adaptive LOCALIZE.** v0 produces the heat-map; using it to auto-suggest the next side condition is future work.
 
