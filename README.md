@@ -38,7 +38,8 @@ birch-swinnerton-dyer/
 │   ├── two_descent/             # (j) 2-isogeny descent: the rigorous rank upper bound
 │   ├── padic_lfunction/         # (k) p-adic L-function: exceptional zero + MTT L-invariant
 │   ├── engine/                  # (l) the proof-search engine: atlas-as-graph, frontier, AUDIT gate
-│   └── theta_shadow/            # (m) the codim-1 Kudla shadow: Waldspurger / Tunnell
+│   ├── theta_shadow/            # (m) the codim-1 Kudla shadow: Waldspurger / Tunnell
+│   └── padic_regulator/         # (n) the p-adic height regulator of 389a1 (Direction 05)
 ├── references/                  # Reference library index (gitignored PDFs) + tracked bibliography
 ├── lean/                        # Lean 4 / Mathlib formal verification (skeleton)
 │   ├── lakefile.lean
@@ -87,7 +88,7 @@ Read every negative result here in that spirit. The fact that only ranks 0 and 1
 
 ## Experimental thread
 
-See [`experiments/PLAN.md`](experiments/PLAN.md). Twelve runnable experiments built on a shared `EllipticCurve` / Hasse-Weil $L$-function interface and three wrong-approach detectors, plus a proof-search engine that ties them into one loop:
+See [`experiments/PLAN.md`](experiments/PLAN.md). Thirteen runnable experiments built on a shared `EllipticCurve` / Hasse-Weil $L$-function interface and three wrong-approach detectors, plus a proof-search engine that ties them into one loop:
 
 - (a) **Analytic rank** from $L(E, s)$ derivatives at $s = 1$ via the approximate functional equation.
 - (b) **Weak BSD** on a bundled table of curves of rank 0, 1, 2, 3: analytic rank vs Mordell-Weil rank.
@@ -104,6 +105,8 @@ See [`experiments/PLAN.md`](experiments/PLAN.md). Twelve runnable experiments bu
 Built on the same substrate and detectors, a **proof-search engine** ([`experiments/engine/`](experiments/engine/), spec in [`docs/03_research/engine/`](docs/03_research/engine/README.md)) encodes the research atlas as a typed proof graph and computes the frontier of the open regime: weak BSD in rank $\geq 2$ reduces to the single open object {rank_two_object}, strong BSD to {rank_two_object, higher_euler_system}, never through parity. It wires the three detectors as an automatic AUDIT gate, runs a PROPOSE+FALSIFY mining pass over the curve invariants, LOCALIZEs where a candidate breaks (curve $\times$ rank and curve $\times$ prime residual heat-maps with an automatic cliff diagnosis), runs the candidate rank $\geq 2$ construction classes through the Direction-01 battery (the only T1-passer is non-constructive search), and emits Lean `sorry`-obligations for the open frontier. It is a sound bookkeeper and falsifier, not a solver. See experiment (l).
 
 Experiment (m) ([`theta_shadow/`](experiments/theta_shadow/)) opens the **Kudla Clause-2 front** the engine surfaced: it computes the codim-1 shadow of the Kudla generating series (Waldspurger / Tunnell on the congruent-number family, $\kappa = \Omega/32$ constant to ~30 digits, Tunnell coefficients from scratch by lattice counting) and names, via Detector 3, the two function-field imports the open rank-2 / codim-2 case would need. Specified in [Direction 04](docs/03_research/research_directions/04_kudla_clause_two_bridge.md). It tests the shadow, not the open construction.
+
+Experiment (n) ([`padic_regulator/`](experiments/padic_regulator/)) takes a real swing at that front's order gap, gated hard against overclaiming. The honest, calibrated result ([Direction 05](docs/03_research/research_directions/05_padic_second_leg.md)): the order gap is an **archimedean** obstruction, and the $p$-adic side has a genuine second deformation axis (cyclotomic + weight), so the second-order Clause-2 object (the $p$-adic height regulator) is computable there. It builds that object from scratch (Mazur-Stein-Tate) and computes $v_5(\mathrm{Reg}_5(389a1)) = v_7(\mathrm{Reg}_7) = 2$, the missing object experiment (k) named. What it does NOT do: cross Bridge 2 (the points are input), prove the rank-2 identity (that is $p$-adic BSD, conjectural), or bound Sha. It is a reframing plus a computed witness, not a proof.
 
 Smoke test:
 ```powershell
@@ -125,7 +128,7 @@ Plus a **control pair**: a rank $\leq 1$ curve (BSD proven) versus an explicit r
 | Area | Status |
 |------|--------|
 | Repo structure | Complete |
-| Experiments: Phase 0 infrastructure (EllipticCurve / L-function + detectors + smoke test) | Complete, smoke test 10/10 (check 7: exact off-center functional equation; check 8: 2-isogeny descent engine; check 9: p-adic engine; check 10: theta-shadow engine) |
+| Experiments: Phase 0 infrastructure (EllipticCurve / L-function + detectors + smoke test) | Complete, smoke test 11/11 (check 7: exact off-center functional equation; check 8: 2-isogeny descent engine; check 9: p-adic engine; check 10: theta-shadow engine; check 11: p-adic height regulator engine) |
 | Experiment (a): analytic rank from L-derivatives | Runnable |
 | Experiment (b): weak BSD on rank 0-3 table | Runnable |
 | Experiment (c): strong BSD quantities -> conjectural #Sha | Runnable |
@@ -137,8 +140,9 @@ Plus a **control pair**: a rank $\leq 1$ curve (BSD proven) versus an explicit r
 | Experiment (i): strong BSD high precision | Runnable; #Sha = 1 to 27 digits on all five open-regime curves |
 | Experiment (j): 2-isogeny descent | Runnable; rank E_34 = 2 proven, rank >= 2 curves carry no rational 2-isogeny |
 | Experiment (k): p-adic L-function (Mazur-Tate-Teitelbaum) | Runnable; exceptional zero classified, L-invariant computed to 20 base-p digits, Greenberg-Stevens RHS assembled on 11a1 |
-| Experiment (l): proof-search engine (atlas-as-graph + frontier + AUDIT) | Runnable; frontier of rank >= 2 BSD computes to {rank_two_object}, never via parity; detectors wired as an automatic gate; smoke still 10/10 |
+| Experiment (l): proof-search engine (atlas-as-graph + frontier + AUDIT) | Runnable; frontier of rank >= 2 BSD computes to {rank_two_object}, never via parity; detectors wired as an automatic gate; smoke still 11/11 |
 | Experiment (m): theta shadow (Waldspurger / Tunnell, the codim-1 Kudla shadow) | Runnable; Waldspurger kappa = Omega/32 constant to ~30 digits on the congruent-number family; smoke check 10; rank-2 / codim-2 Clause-2 object stays OPEN |
+| Experiment (n): p-adic height regulator of 389a1 (the order-gap witness, Direction 05) | Runnable; from-scratch Mazur-Stein-Tate pipeline; v_5(Reg_5) = v_7(Reg_7) = 2; points are input (Bridge 2 open); the rank-2 identity is conjectural; smoke check 11 |
 | Solutions / approach catalog | `docs/solutions/` |
 | Research atlas | `docs/research_atlas/` |
 | Docs (intuitive, undergrad, graduate, research) | Substantial |
@@ -174,4 +178,7 @@ python -m experiments.engine.e_l_engine
 
 # Open the Kudla Clause-2 front (experiment m: the codim-1 theta shadow)
 python -m experiments.theta_shadow.e_m_theta_shadow
+
+# Witness the order gap p-adically (experiment n: the p-adic height regulator)
+python -m experiments.padic_regulator.e_n_padic_regulator
 ```

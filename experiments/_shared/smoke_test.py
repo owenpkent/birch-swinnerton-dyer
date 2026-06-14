@@ -29,6 +29,14 @@ Validates:
      Waldspurger proportionality constant kappa = Omega_{E_1}/32 matches the CM
      closed form 2 pi / AGM(1, sqrt 2) / 32 to 8 digits (the rank-1 shadow; the
      rank-2 / codim-2 Clause-2 object stays OPEN, Detector 3).
+ 11. p-adic height regulator engine (experiment n): the object experiment (k)
+     named missing. The formal group round-trips (log(exp(z)) = z) and the
+     p-adic sigma function is z + z^3/6 - ... (odd); the cyclotomic p-adic
+     height on 389a1 at p = 5 is quadratic (h_5(2P) = 4 h_5(P)) and bilinear,
+     m = #E(F_5) = 9 reduces into the formal group, and v_5(Reg_5(389a1)) = 2
+     is c-independent. The one constant c (the p-adic E2) is the NAMED gap:
+     sigma_constant_c raises rather than faking a number. The two points are
+     INPUT (Bridge 2 open); no Sha is bounded in rank >= 2 (Detector 2).
 """
 
 from __future__ import annotations
@@ -240,6 +248,60 @@ def test_theta_shadow():
     return ok_all
 
 
+def test_padic_regulator_engine():
+    print("Test 11: p-adic height regulator engine (experiment n)")
+    from fractions import Fraction
+    from experiments._shared.rational_points import add, multiply
+    from experiments._shared.padic_height import (
+        formal_group, sigma_series, sigma_in_t, padic_height,
+        padic_height_pairing, padic_regulator,
+    )
+    ok_all = True
+    a = [0, 1, 1, -2, 0]                 # 389a1
+    P = (Fraction(0), Fraction(0))
+    Q = (Fraction(1), Fraction(0))
+    E = get_curve("389a1")
+    # formal group: log(exp(z)) = z (round trip), and sigma is z + z^3/6 - ...
+    fg = formal_group(a, 8)
+    from experiments._shared.padic_height import _ps_compose
+    comp = _ps_compose(fg["logf"], fg["expf"], 6)
+    ok_all = ok_all and check(
+        "formal group log(exp(z)) = z (round trip)",
+        comp[1] == 1 and all(comp[k] == 0 for k in (0, 2, 3, 4, 5, 6)))
+    sig = sigma_series(a, Fraction(0), 6)
+    ok_all = ok_all and check(
+        "sigma_p(z) = z + z^3/6 - ... (odd, z + O(z^3))",
+        sig[1] == 1 and sig[2] == 0 and sig[3] == Fraction(1, 6))
+    # quadraticity, bilinearity, c-independent valuation on 389a1 at p = 5
+    p, prec, c = 5, 14, Fraction(0)
+    M = p ** prec
+    sig_t = sigma_in_t(a, c, prec + 14)
+    hP, m = padic_height(E, P, p, prec, c, sig_t)
+    h2P, _ = padic_height(E, multiply(E, 2, P), p, prec, c, sig_t)
+    ok_all = ok_all and check(
+        "h_5(2P) = 4 h_5(P) (quadratic), m = #E(F_5) = 9",
+        (h2P % M) == (4 * hP) % M and m == 9)
+    lhs = padic_height_pairing(E, add(E, P, Q), P, p, prec, c, sig_t)
+    rhs = (padic_height_pairing(E, P, P, p, prec, c, sig_t)
+           + padic_height_pairing(E, Q, P, p, prec, c, sig_t)) % M
+    ok_all = ok_all and check("<P+Q,P>_5 = <P,P>_5 + <Q,P>_5 (bilinear)", lhs == rhs)
+    vals = set()
+    for cc in (Fraction(0), Fraction(2), Fraction(1, 3)):
+        vals.add(padic_regulator(E, [P, Q], p, prec, cc)["det_valuation"])
+    ok_all = ok_all and check(
+        "v_5(Reg_5(389a1)) = 2, c-independent across c in {0, 2, 1/3}",
+        vals == {2})
+    # the named gap raises rather than returning a wrong number
+    from experiments._shared.padic_height import sigma_constant_c
+    raised = False
+    try:
+        sigma_constant_c(E, 5, 8)
+    except NotImplementedError:
+        raised = True
+    ok_all = ok_all and check("sigma_constant_c (p-adic E2) is the NAMED gap (raises)", raised)
+    return ok_all
+
+
 def main():
     results = [
         test_point_counting(),
@@ -252,6 +314,7 @@ def main():
         test_descent_engine(),
         test_padic_engine(),
         test_theta_shadow(),
+        test_padic_regulator_engine(),
     ]
     print()
     n_pass = sum(results)

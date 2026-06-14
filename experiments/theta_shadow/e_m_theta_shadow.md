@@ -178,4 +178,4 @@ dependency.
 
 A sub-second guard is added to `experiments/_shared/smoke_test.py` as check 10
 ($c_3 = -4$ and $\kappa = \Omega_{E_1}/32$ to 8 digits); the smoke test stays
-green at 10/10.
+green at 11/11.

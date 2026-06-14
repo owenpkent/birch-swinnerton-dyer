@@ -74,4 +74,5 @@ The engine ([`experiments/engine/`](../../experiments/engine/)) now derives this
 - The computational thread that validates the substrate: [`experiments/PLAN.md`](../../experiments/PLAN.md).
 - This atlas as a machine-queryable proof graph (the frontier computed, not asserted): [`experiments/engine/`](../../experiments/engine/), specified in [`docs/03_research/engine/`](../03_research/engine/README.md).
 - The Kudla Clause-2 bridge, specified (the live candidate the engine surfaced), plus its computable rank-1 shadow: [`04_kudla_clause_two_bridge.md`](../03_research/research_directions/04_kudla_clause_two_bridge.md) and experiment (m) [`experiments/theta_shadow/`](../../experiments/theta_shadow/).
+- The order gap reframed as archimedean, with the p-adic second axis (cyclotomic + weight) as the number-field second leg and the p-adic height regulator as the computed witness: [`05_padic_second_leg.md`](../03_research/research_directions/05_padic_second_leg.md) and experiment (n) [`experiments/padic_regulator/`](../../experiments/padic_regulator/).
 - Operating philosophy: [`docs/researcher_mindset.md`](../researcher_mindset.md).

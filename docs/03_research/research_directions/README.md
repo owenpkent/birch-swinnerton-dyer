@@ -7,5 +7,7 @@
 | 01 | Specify the rank-2 object (higher-rank Heegner analog) | SPEC PRECISE (2026-06-11): executable test battery T1-T4 wired to experiments (e)-(h); multi-field Heegner inputs retired by Gross-Kohnen-Zagier | Detectors 1, 3 |
 | 02 | A rank $\geq 2$ Euler system bounding Sha | open question; ARCHITECTURE-4 DETECTOR SCORECARD added (2026-06-12); the rank-$\geq 2$ norm relations specified | Detector 2 |
 | 03 | Push the $p$-adic main conjecture toward the archimedean leading term in rank $\geq 2$ | open question; ARCHITECTURE-3 DETECTOR SCORECARD + computational anchor (experiment k, the MTT $\mathcal{L}$-invariant / exceptional zero) added (2026-06-12) | Detector 2 |
+| 04 | Specify the Kudla Clause-2 bridge (the two open bridges, the order gap, the substitution problem) | SPEC + rank-1 shadow (experiments g, h, m); both bridges over $\mathbb{Q}$ OPEN | Detectors 1, 3 |
+| 05 | Cross the order gap on the $p$-adic side (the cyclotomic / weight second leg) | REFRAMING + witness (experiment n, the $p$-adic height regulator on 389a1, $v_5 = v_7 = 2$); order gap diagnosed archimedean, second-order object computable, equality CONJECTURAL in rank 2; Bridge 2 + archimedean transfer + Sha stay OPEN (2026-06-13) | Detector 2 (Sha), Detector 3 (near-miss) |
 
 See the individual files. The single most-leveraged move (per [`STATE_OF_THE_PROGRAM.md`](../../../STATE_OF_THE_PROGRAM.md)) is Direction 01.
