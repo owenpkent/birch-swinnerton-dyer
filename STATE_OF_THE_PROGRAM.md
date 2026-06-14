@@ -1,6 +1,6 @@
 # State of the proof program (repo-wide)
 
-> A one-page strategic snapshot of the whole project: where every architecture stands, what each proves and where it stops, where the live work is, and the single most-leveraged next move. Companion to the operational [`PHASE_STATE.md`](PHASE_STATE.md) and the synthesis surface [`experiments/LEARNINGS.md`](experiments/LEARNINGS.md). Last updated: 2026-06-02.
+> A one-page strategic snapshot of the whole project: where every architecture stands, what each proves and where it stops, where the live work is, and the single most-leveraged next move. Companion to the operational [`PHASE_STATE.md`](PHASE_STATE.md) and the synthesis surface [`experiments/LEARNINGS.md`](experiments/LEARNINGS.md). Last updated: 2026-06-13.
 
 ## The thesis in one paragraph
 
@@ -27,6 +27,7 @@ The bet (mirroring how the function-field case is fully understood via Tate / Ar
 - The $p$-adic main conjecture (Skinner-Urban) and Kato's Euler system give the $p$-part of BSD in many rank $\leq 1$ cases.
 - The function-field template: BSD over $\mathbb{F}_q(C)$ is a theorem under finite Sha, computed from etale cohomology of the elliptic surface. This is the "what a complete proof looks like" control.
 - A computed, validated experimental substrate: analytic rank from $L$-derivatives matches the Mordell-Weil rank on the bundled curves, the strong-BSD formula solved for $\#\mathrm{Sha}$ lands at a perfect square, and Sato-Tate validates the $a_p$ pipeline.
+- A proof-search ENGINE (experiment (l), [`experiments/engine/`](experiments/engine/)) that runs the whole discipline as a closed loop: the atlas as a typed proof graph (frontier of rank $\geq 2$ BSD computed to {rank_two_object}, never via parity), the three detectors as an automatic AUDIT gate, residual heat-maps that LOCALIZE where a candidate breaks, a PROPOSE battery scoring the candidate construction classes against the Direction-01 bar, and a VERIFY pass emitting Lean sorry-obligations. It proves nothing in rank $\geq 2$; it makes the boundary auditable and re-runnable.
 
 **The one missing object:** a construction that produces $\geq 2$ independent rational points (a higher-rank analog of the Heegner point) OR an Euler system that bounds Sha unconditionally in rank $\geq 2$. Untouched at the construction level; multi-year, multi-person.
 
@@ -43,9 +44,9 @@ Skeleton (documented `sorry`). Mathlib has `EllipticCurve` and `WeierstrassCurve
 
 ## The single most-leveraged next move
 
-**Specify the rank-2 object.** The cheapest high-value move is to write down precisely what a rank-2 generalization of the Heegner-point construction would have to produce (two independent points, or a height pairing that is provably rank 2), and run it through Detector 1 and Detector 3 to confirm it is not secretly parity-only or function-field-only. If it survives, it is the construction target. If it fails, the failure mode tells us which input class is missing.
+The rank-2 object is now specified ([Direction 01](docs/03_research/research_directions/01_rank_two_object.md)) and the discipline runs as the engine of experiment (l). The engine's PROPOSE battery leaves exactly one construction class lit as the live candidate: the **Kudla program / arithmetic theta series**, the only formalism with the Clause-2 second-derivative shape (codimension-$r$ arithmetic cycles against genus-$r$ Eisenstein series). The most-leveraged next move is to attack its two named bridges over $\mathbb{Q}$: from an Eisenstein / orthogonal $L$-value to $L(E, s)$, and from a cycle class to a rational point. Yun-Zhang prove the all-orders shape over function fields, so the wall is localized to exactly the two imports a number-field version must replace (the $r$ moving legs over $X^r$, the Frobenius twist in the shtuka). Anything claimed here runs through Detector 3 first: the higher-derivative layer is a function-field theorem, so a transfer to $\mathbb{Q}$ must not silently import the surface.
 
-Honest odds: an unconditional BSD proof in rank $\geq 2$ is a generational result; this repo's value is the sharp map of the boundary and the validated substrate for testing candidate constructions against the three detectors.
+Honest odds: an unconditional BSD proof in rank $\geq 2$ is a generational result; this repo's value is the sharp map of the boundary, the validated substrate, and now an auditable engine for testing candidate constructions against the three detectors.
 
 ## Canonical pointers
 
